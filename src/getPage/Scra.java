@@ -19,10 +19,20 @@ public class Scra {
 		System.out.println(counter);
 		if (counter++ < maxCount) {
 			Document doc = Jsoup.connect(url).get();
-			Elements datas = doc.select(".sg-col-4-of-12.sg-col-8-of-16.sg-col-16-of-24.sg-col-12-of-20.sg-col-24-of-32.sg-col.sg-col-28-of-36.sg-col-20-of-28");
+			Elements datas;
+//			amazonのテンプレートが複数に分かれているので、各パターンで対応する
+			Elements dataPetern1 = doc.select(".sg-col-4-of-12.sg-col-8-of-16.sg-col-16-of-24.sg-col-12-of-20.sg-col-24-of-32.sg-col.sg-col-28-of-36.sg-col-20-of-28");
+			Elements dataPetern2 = doc.select(".sg-col-4-of-24.sg-col-4-of-12.sg-col-4-of-36.s-result-item.s-asin.sg-col-4-of-28.sg-col-4-of-16.sg-col.sg-col-4-of-20.sg-col-4-of-32");
+			if(dataPetern1.size() > dataPetern2.size()) {
+				datas = dataPetern1;
+			}
+			else {
+				datas = dataPetern2;
+			}
 			for (Element data : datas) {
 				Elements title = data.select(".a-link-normal.a-text-normal");
 				accessUrl.add("https://www.amazon.co.jp" + title.attr("href"));
+//				System.out.println("https://www.amazon.co.jp" + title.attr("href"));
 				try {
 					Thread.sleep(300);
 				} catch (InterruptedException e1) {

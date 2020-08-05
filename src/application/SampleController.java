@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import dbj.SqliteDBJ;
+import getPage.Detail;
 import getPage.Scra;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,11 +21,14 @@ public class SampleController {
 	      } catch (SQLException | ClassNotFoundException ex) {
 	        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 	      }
-		String url = "https://www.amazon.co.jp/s?bbn=2111178051&rh=n%3A2017304051%2Cn%3A%212017305051%2Cn%3A2111178051%2Cp_76%3A2227292051&dc&fst=as%3Aoff&qid=1595300246&rnid=2227291051&ref=lp_2111178051_nr_p_76_0";
-		
-		int count = 2;
+//		String url = "https://www.amazon.co.jp/s?bbn=2111178051&rh=n%3A2017304051%2Cn%3A%212017305051%2Cn%3A2111178051%2Cp_76%3A2227292051&dc&fst=as%3Aoff&qid=1595300246&rnid=2227291051&ref=lp_2111178051_nr_p_76_0";
+		String url = "https://www.amazon.co.jp/s?i=fashion-mens-shoes&bbn=2016926051&rh=n%3A2016926051%2Cp_76%3A2227292051&dc&fst=as%3Aoff&qid=1596547791&ref=sr_ex_n_1";
+		int count = 1;
 		Scra pageUrls = new Scra(url, count);
+
 		System.out.println(pageUrls.accessUrl);
+
+		Detail purodDetail = new Detail(pageUrls.accessUrl);
 
 	}
 
