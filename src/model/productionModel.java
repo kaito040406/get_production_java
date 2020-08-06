@@ -10,9 +10,15 @@ public class productionModel {
 	public final SimpleStringProperty url;
 	public final SimpleStringProperty price;
 	public final SimpleStringProperty category;
+	public final SimpleStringProperty maker;
+	public final SimpleStringProperty bland;
 	public final SimpleStringProperty date;
+	
+	public final SimpleStringProperty categoryId;
+	public final SimpleStringProperty yCategory;
+	
 
-	public productionModel(int id, String asin, String name, String memo, String url, String price, String category, String date) {
+	public productionModel(int id, String asin, String name, String memo, String url, String price, String category, String maker, String bland, String date, String categoryId, String yCategory) {
 		this.id = new SimpleIntegerProperty(id);
 		this.asin = new SimpleStringProperty(asin);
 		this.name = new SimpleStringProperty(name);
@@ -20,7 +26,11 @@ public class productionModel {
 		this.url = new SimpleStringProperty(url);
 		this.price = new SimpleStringProperty(price);
 		this.category = new SimpleStringProperty(category);
+		this.bland = new SimpleStringProperty(maker);
+		this.maker = new SimpleStringProperty(bland);
 		this.date = new SimpleStringProperty(date);
+		this.categoryId = new SimpleStringProperty(categoryId);
+		this.yCategory = new SimpleStringProperty(yCategory);
 	}
 
 	public int getId() {
@@ -65,11 +75,35 @@ public class productionModel {
 	public void setCategory(String category) {
 		this.category.set(category);
 	}
+	public String getMaker() {
+		return this.maker.get();
+	}
+	public void setMaker(String maker) {
+		this.category.set(maker);
+	}
+	public String getBland() {
+		return this.bland.get();
+	}
+	public void setBland(String bland) {
+		this.category.set(bland);
+	}
 	public String getDate() {
 		return this.date.get();
 	}
 	public void setDate(String date) {
 		this.date.set(date);
+	}
+	public String getCategoryId() {
+		return this.categoryId.get();
+	}
+	public void setCategoryId(String categoryId) {
+		this.categoryId.set(categoryId);
+	}
+	public String getYCatedory() {
+		return this.yCategory.get();
+	}
+	public void setYCategory(String yCategory) {
+		this.yCategory.set(yCategory);
 	}
 
 

@@ -15,8 +15,6 @@ public class Scra {
 	public static int maxCount = 0;
 	public static int counter = 0;
 	public static void FirstPage(String url) throws IOException, InterruptedException {
-		System.out.println(maxCount);
-		System.out.println(counter);
 		if (counter++ < maxCount) {
 			Document doc = Jsoup.connect(url).get();
 			Elements datas;
@@ -32,7 +30,7 @@ public class Scra {
 			for (Element data : datas) {
 				Elements title = data.select(".a-link-normal.a-text-normal");
 				accessUrl.add("https://www.amazon.co.jp" + title.attr("href"));
-//				System.out.println("https://www.amazon.co.jp" + title.attr("href"));
+				System.out.println("https://www.amazon.co.jp" + title.attr("href"));
 				try {
 					Thread.sleep(300);
 				} catch (InterruptedException e1) {
@@ -41,7 +39,7 @@ public class Scra {
 			}
 			String nextPageElement = doc.select(".a-last").select("a[href]").attr("href");
 			String nextPage = "https://www.amazon.co.jp" + nextPageElement;
-			System.out.println(nextPage);
+//			System.out.println(nextPage);
 			Next(nextPage);
 		}
 		else {

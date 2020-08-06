@@ -28,7 +28,7 @@ public class SqliteDB {
 	    	// ステートメントの生成
 	          stmt = con.createStatement();
 	          // テーブル作成
-	          stmt.executeUpdate("create table if not exists productionTbl(id integer primary key,asin text,name text,url text,memo text,price text,category text,date timestamp NOT NULL default (datetime(CURRENT_TIMESTAMP,'localtime')))");
+	          stmt.executeUpdate("create table if not exists productionTbl(id integer primary key,asin text,name text,url text,memo text,price text,category text,maker text,bland text,date timestamp NOT NULL default (datetime(CURRENT_TIMESTAMP,'localtime')))");
 
 	      }catch (SQLException ex) {
               System.out.println("DB接続に失敗しました！。\n" + ex);
@@ -49,6 +49,7 @@ public class SqliteDB {
 	       stmt = con.createStatement();
 	       resultSet = stmt.executeQuery(queryStmt);
 	       // ResultSetオブジェクトのデータをpopulateメソットを使用して読み込みます。
+	       System.out.println(resultSet);
 	       rowSet.populate(resultSet);
 	     } catch (SQLException ex) {
 	         System.out.println("検索に失敗しました！。\n" + ex);

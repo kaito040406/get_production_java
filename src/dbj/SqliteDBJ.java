@@ -10,12 +10,12 @@ import model.productionModel;
 
 public class SqliteDBJ {
 	// 登録
-	  public static void insertData (String asin, String name, String url, String memo, String price, String category, String date) throws SQLException, ClassNotFoundException {
+	  public static void insertData (String asin, String name, String url, String memo, String price, String category, String maker, String bland ,String date, String categoryId, String yCategory) throws SQLException, ClassNotFoundException {
 	    String insertStmt;
 	    // SQL文の作成
 	    insertStmt = "INSERT INTO productionTbl" +
-	                  "(asin, name, url, memo, price, category)" +
-	                  "VALUES('" + asin + "','" + name + "','" + url + "','" + memo + "','" + price + "','" + category + "','" + date +"')";
+	                  "(asin, name, url, memo, price, category, maker ,bland, date, category, yCategory)" +
+	                  "VALUES('" + asin + "','" + name + "','" + url + "','" + memo + "','" + price + "','" + category + "','" + maker + "','" + bland + "','" +   date + "','" +  categoryId + "','" + yCategory +"')";
 	    try {
 	      // SqliteDBクラスへSQLを発行
 	      SqliteDB.dbUpdate(insertStmt);
@@ -36,7 +36,11 @@ public class SqliteDBJ {
 		      rs.getString("url"),
 		      rs.getString("price"),
 		      rs.getString("category"),
-		      rs.getString("date")));
+		      rs.getString("maker"),
+		      rs.getString("bland"),
+		      rs.getString("date"),
+		      rs.getString("categoryId"),
+		      rs.getString("yCategory")));
 		    }
 		      return data;
 		  }
