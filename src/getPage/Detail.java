@@ -2,6 +2,8 @@ package getPage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import dbj.SqliteDBJ;
 import search.Search;
 
 public class Detail {
@@ -93,10 +96,14 @@ public class Detail {
 						categorySearchData.add(searchData);
 					}
 				}
+				String categoryId = "";
+				String yCategory = "";
 				try {
 					Search cateData = new Search(categorySearchData);
 //					System.out.println(cateData.category);
 //					System.out.println(category);
+					categoryId = cateData.categoryId;
+					yCategory = cateData.category;
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO 自動生成された catch ブロック
 					e.printStackTrace();
@@ -111,7 +118,14 @@ public class Detail {
 				System.out.println(bland);
 				System.out.println(asin);
 				System.out.println(category);
-//				SqliteDBJ.insertData(asin, title.text(), url, productText,);
+				String text = selection.text() + "<br>" + productText;
+				String strDate = toStr(LocalDateTime.now(), "yyyy/MM/dd");
+				try {
+					SqliteDBJ.insertData(asin, title.text(), url, text, price, category, maker, bland, strDate, categoryId, yCategory);
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO 自動生成された catch ブロック
+					e.printStackTrace();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -122,6 +136,13 @@ public class Detail {
 			}
         });
 	}
+
+	public static String toStr(LocalDateTime localDateTime, String format) {
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(format);
+        return localDateTime.format(dateTimeFormatter);
+
+    }
 
 	public Detail(List<String> pruductionUrl){
 		Detail.pruductionUrl = pruductionUrl;

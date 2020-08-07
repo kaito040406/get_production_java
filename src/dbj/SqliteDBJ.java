@@ -14,7 +14,7 @@ public class SqliteDBJ {
 	    String insertStmt;
 	    // SQL文の作成
 	    insertStmt = "INSERT INTO productionTbl" +
-	                  "(asin, name, url, memo, price, category, maker ,bland, date, category, yCategory)" +
+	                  "(asin, name, url, memo, price, category, maker ,bland, date, categoryId, yCategory)" +
 	                  "VALUES('" + asin + "','" + name + "','" + url + "','" + memo + "','" + price + "','" + category + "','" + maker + "','" + bland + "','" +   date + "','" +  categoryId + "','" + yCategory +"')";
 	    try {
 	      // SqliteDBクラスへSQLを発行
