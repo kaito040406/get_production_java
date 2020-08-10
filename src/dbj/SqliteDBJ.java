@@ -56,4 +56,16 @@ public class SqliteDBJ {
 		  return false;
 	  }
 
+	  public static ObservableList<productionModel> searchAllData() throws SQLException, ClassNotFoundException {
+		    String sql = "SELECT * FROM productionTbl";
+		    try {
+		      ResultSet rs = SqliteDB.dataQuery(sql);
+		      ObservableList<productionModel> data = searchAllDataList(rs);
+		      return data;
+		    } catch (SQLException ex) {
+		        System.out.println("全件の検索に失敗しました!。\n" + ex);
+		        throw ex;
+		    }
+		  }
+
 }
