@@ -46,7 +46,8 @@ public class Search {
 		if (rs.next()){
 		      data.add(new categoryModel(
 		      rs.getString("categoryId"),
-		      rs.getString("category")
+		      rs.getString("category"),
+		      rs.getString("searchId")
 		      ));
 		    }
 		return data;

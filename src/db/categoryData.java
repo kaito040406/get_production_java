@@ -30,7 +30,7 @@ public class categoryData {
 	          stmt = con.createStatement();
 	          // テーブル作成
 	          try {
-		          stmt.executeUpdate("create table categoryTbl(categoryId text, category text)");
+		          stmt.executeUpdate("create table categoryTbl(categoryId text, category text, searchId text)");
 		          try {
 			    	 File f = new File("category.csv");
 			    	 BufferedReader br = new BufferedReader(new FileReader(f));
@@ -39,7 +39,7 @@ public class categoryData {
 			    	 while ((line = br.readLine()) != null) {
 			    		 String[] data = line.split(",", 0);
 			    		 try {
-			    			 stmt.executeUpdate("insert into categoryTbl (categoryId, category) " + "values (" + "'" + data[0] + "'" + "," + "'" + data[1] + "'" + ");");
+			    			 stmt.executeUpdate("insert into categoryTbl (categoryId, category, searchId) " + "values (" + "'" + data[0] + "'" + "," + "'" + data[1] + "'" +  "," + "'" + data[2] + "'" + ");");
 			    		 }catch(SQLException ex) {
 			    			 System.out.println(data[1]);
 			    		 }

@@ -2,6 +2,7 @@ package application;
 
 import db.categoryData;
 import db.ngWordData;
+import db.searchLinkData;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,6 +20,7 @@ public class Main extends Application {
 			primaryStage.show();
 			categoryData.startDbCon();
 			ngWordData.startDbCon();
+			searchLinkData.startDbCon();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

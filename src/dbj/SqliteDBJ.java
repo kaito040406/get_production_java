@@ -8,6 +8,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.ngwordModel;
 import model.productionModel;
+import model.searchIdModel;
 
 public class SqliteDBJ {
 	// 登録
@@ -46,15 +47,27 @@ public class SqliteDBJ {
 		      return data;
 		  }
 
+	//NGワードの全検索
 	  private static ObservableList<ngwordModel> searchAllNgwordList(ResultSet rs) throws SQLException, ClassNotFoundException {
-		    ObservableList<ngwordModel> data = FXCollections.observableArrayList();
+	    ObservableList<ngwordModel> data = FXCollections.observableArrayList();
+	    while (rs.next()){
+	      data.add(new ngwordModel(
+	      rs.getString("word"),
+	      rs.getString("level")));
+	    }
+	      return data;
+	  }
+	//サーチリンクの全検索
+	  private static ObservableList<searchIdModel> searchAllLinkList(ResultSet rs) throws SQLException, ClassNotFoundException {
+		  ObservableList<searchIdModel> data = FXCollections.observableArrayList();
 		    while (rs.next()){
-		      data.add(new ngwordModel(
-		      rs.getString("word"),
-		      rs.getString("level")));
+		      data.add(new searchIdModel(
+		      rs.getString("amazonCategory"),
+		      rs.getString("yahooCategory"),
+		      rs.getString("categoryId")));
 		    }
 		      return data;
-		  }
+	  }
 
 	  public static boolean dataDelete() throws SQLException, ClassNotFoundException{
 		  String delSql;
@@ -79,6 +92,7 @@ public class SqliteDBJ {
 		    }
 		  }
 
+	  //NGワードの全検索
 	  public static ObservableList<ngwordModel> searchAllDataNg() throws SQLException, ClassNotFoundException {
 		    String sql = "SELECT * FROM ngWordTbl";
 		    try {
@@ -90,5 +104,17 @@ public class SqliteDBJ {
 		        throw ex;
 		    }
 		  }
+	  //サーチリンクの全検索
+	  public static ObservableList<searchIdModel> searchAllDataLink() throws SQLException, ClassNotFoundException {
+		  String sql = "SELECT * FROM searchLinkTbl";
+		  try {
+			  ResultSet rs = SqliteDB.dataQuery(sql);
+		      ObservableList<searchIdModel> data = searchAllLinkList(rs);
+		      return data;
+		  } catch (SQLException ex) {
+		        System.out.println("全件の検索に失敗しました!。\n" + ex);
+		        throw ex;
+		    }
+	  }
 
 }

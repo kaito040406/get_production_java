@@ -1,4 +1,5 @@
 package db;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -10,7 +11,7 @@ import java.sql.Statement;
 
 import org.sqlite.SQLiteException;
 
-public class ngWordData {
+public class searchLinkData {
 	private static Connection con = null;
 
 	public static void startDbCon() throws SQLException, ClassNotFoundException{
@@ -29,16 +30,16 @@ public class ngWordData {
 	          stmt = con.createStatement();
 	          // テーブル作成
 	          try {
-		          stmt.executeUpdate("create table ngWordTbl(word text, level text)");
+		          stmt.executeUpdate("create table searchLinkTbl(amazonCategory text, yahooCategory text, categoryId text)");
 		          try {
-			    	 File f = new File("ngWord.csv");
+			    	 File f = new File("linkmaster.csv");
 			    	 BufferedReader br = new BufferedReader(new FileReader(f));
 
 			    	 String line;
 			    	 while ((line = br.readLine()) != null) {
 			    		 String[] data = line.split(",", 0);
 			    		 try {
-			    			 stmt.executeUpdate("insert into ngWordTbl (word, level) " + "values (" + "'" + data[0] + "'" + "," + "'" + data[1] + "'" + ");");
+			    			 stmt.executeUpdate("insert into searchLinkTbl (amazonCategory, yahooCategory, categoryId) " + "values (" + "'" + data[0] + "'" + "," + "'" + data[1] + "'" + "," + "'" + data[2] + "'" + ");");
 			    		 }catch(SQLException ex) {
 			    			 System.out.println(data[1]);
 			    		 }
