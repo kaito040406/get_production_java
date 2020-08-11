@@ -1,6 +1,7 @@
 package application;
 
 import db.categoryData;
+import db.ngWordData;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,6 +18,7 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.show();
 			categoryData.startDbCon();
+			ngWordData.startDbCon();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

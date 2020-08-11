@@ -13,10 +13,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import model.productionModel;
 
 public class SampleController {
@@ -33,7 +37,7 @@ public class SampleController {
     private TableColumn price;
     @FXML
     private TableColumn accessurl;
-
+    @FXML
     private ObservableList<TableData> data;
 //    private ObservableList<productionModel> data;
 
@@ -41,17 +45,11 @@ public class SampleController {
 	@FXML
 	public void onClick(ActionEvent e) throws IOException, InterruptedException, ClassNotFoundException, SQLException {
 
-
-
-
 		try {
 	        SqliteDBJ.dataDelete();
 	      } catch (SQLException | ClassNotFoundException ex) {
 	        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 	      }
-
-
-
 
 		String url = "https://www.amazon.co.jp/s?i=fashion-mens-shoes&bbn=2016926051&rh=n%3A2016926051%2Cp_76%3A2227292051&dc&fst=as%3Aoff&qid=1596547791&ref=sr_ex_n_1";
 		int count = 1;
@@ -84,6 +82,23 @@ public class SampleController {
 //			table.getColumns().addAll(searchData.getAsin(), searchData.getAsin(), addresscolumn, memocolumn, datecolumn);
 			data.addAll(new TableData(searchData.getAsin(),searchData.getName(),searchData.getMemo(),searchData.getPrice(),searchData.getUrl()));
 		}
+	}
+
+	@FXML
+	void nextPage(ActionEvent event) {
+		try {
+			settingWindow();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+	}
+
+	void settingWindow() throws IOException, ClassNotFoundException, SQLException{
+		Parent parent = FXMLLoader.load(getClass().getResource("Setting.fxml"));
+		Scene scene = new Scene(parent,400,650);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
 	}
 
 }

@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import db.SqliteDB;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.ngwordModel;
 import model.productionModel;
 
 public class SqliteDBJ {
@@ -45,6 +46,16 @@ public class SqliteDBJ {
 		      return data;
 		  }
 
+	  private static ObservableList<ngwordModel> searchAllNgwordList(ResultSet rs) throws SQLException, ClassNotFoundException {
+		    ObservableList<ngwordModel> data = FXCollections.observableArrayList();
+		    while (rs.next()){
+		      data.add(new ngwordModel(
+		      rs.getString("word"),
+		      rs.getString("level")));
+		    }
+		      return data;
+		  }
+
 	  public static boolean dataDelete() throws SQLException, ClassNotFoundException{
 		  String delSql;
 		  delSql = "DELETE FROM productionTbl";
@@ -61,6 +72,18 @@ public class SqliteDBJ {
 		    try {
 		      ResultSet rs = SqliteDB.dataQuery(sql);
 		      ObservableList<productionModel> data = searchAllDataList(rs);
+		      return data;
+		    } catch (SQLException ex) {
+		        System.out.println("全件の検索に失敗しました!。\n" + ex);
+		        throw ex;
+		    }
+		  }
+
+	  public static ObservableList<ngwordModel> searchAllDataNg() throws SQLException, ClassNotFoundException {
+		    String sql = "SELECT * FROM ngWordTbl";
+		    try {
+		      ResultSet rs = SqliteDB.dataQuery(sql);
+		      ObservableList<ngwordModel> data = searchAllNgwordList(rs);
 		      return data;
 		    } catch (SQLException ex) {
 		        System.out.println("全件の検索に失敗しました!。\n" + ex);

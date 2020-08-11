@@ -22,7 +22,7 @@
             <Pane prefHeight="60.0" prefWidth="693.0">
                <children>
                   <Button fx:id="button" layoutX="472.0" layoutY="10.0" mnemonicParsing="false" onAction="#onClick" prefHeight="31.0" prefWidth="77.0" text="Start" />
-                  <Button layoutX="563.0" layoutY="12.0" mnemonicParsing="false" text="Setting" />
+                  <Button fx:id="setting" layoutX="563.0" layoutY="12.0" mnemonicParsing="false" onAction="#nextPage" text="Setting" />
                </children>
             </Pane>
             <TableView fx:id="productiontable" prefHeight="408.0" prefWidth="693.0">
@@ -32,6 +32,7 @@
                   <TableColumn fx:id="text" onEditStart="#onClick" prefWidth="112.0" text="Text" />
                   <TableColumn fx:id="price" onEditStart="#onClick" prefWidth="135.0" text="price" />
                   <TableColumn fx:id="accessurl" onEditStart="#onClick" prefWidth="232.0" text="url" />
+                  <TableColumn fx:id="price1" onEditStart="#onClick" prefWidth="135.0" text="price" />
               </columns>
                <VBox.margin>
                   <Insets top="20.0" />
