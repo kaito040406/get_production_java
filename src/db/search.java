@@ -18,12 +18,11 @@ public class search {
 
 		List<String> lists = new ArrayList<String>();
 		List<String> outputs = new ArrayList<String>();
-		lists.add("スポーツ＆アウトドア");
-        lists.add("スポーツケア");
-        lists.add("アクセサリー");
-        lists.add("競技備品");
-        lists.add("健康サポート機器");
-        lists.add("活動量計");
+        lists.add("ホーム＆キッチン");
+        lists.add("家具");
+        lists.add("収納家具");
+        lists.add("メタルラック");
+        lists.add("メタルラック本体");
         System.out.println(lists.get(0));
         String SQL1 = "select * from searchLinkTbl where amazonCategory like '%" + lists.get(0) + "%';";
 		ObservableList<searchIdModel> links = searchLinks(SQL1);
@@ -38,7 +37,7 @@ public class search {
 			for(String list : lists) {
 				if(data.getCategory().contains(list)) {
 //					System.out.println(data.getCategory());
-					outputs.add(data.getCategoryId());
+					outputs.add(data.getCategory());
 				}
 			}
 		}

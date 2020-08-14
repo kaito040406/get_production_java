@@ -16,6 +16,7 @@ public class productionModel {
 
 	public final SimpleStringProperty categoryId;
 	public final SimpleStringProperty yCategory;
+	
 
 
 	public productionModel(int id, String asin, String name, String memo, String url, String price, String category, String maker, String bland, String date, String categoryId, String yCategory) {
