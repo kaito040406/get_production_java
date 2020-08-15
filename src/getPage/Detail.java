@@ -13,10 +13,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import dbj.SqliteDBJ;
-import search.Search;
+import model.ngwordModel;
 
 public class Detail {
 	public static List<String> pruductionUrl = new ArrayList<>();
+	public static List<ngwordModel> titleVal = new ArrayList<>();
 
 	public static void GetDetail(List<String> urlList) {
 		urlList.forEach(url -> {
@@ -25,7 +26,14 @@ public class Detail {
 				Document doc = Jsoup.connect(url).get();
 
 				//タイトル情報を取得
-				Elements title = doc.select(".a-size-large.product-title-word-break");
+				String title = doc.select(".a-size-large.product-title-word-break").text();
+				for(ngwordModel val : titleVal) {
+					if(val.getLevel() == "0") {
+						if(title.contains(val.getWord())) {
+							title = "";
+						}
+					}
+				}
 
 
 				//サイズや種類を取得
@@ -43,11 +51,28 @@ public class Detail {
 				//商品テキスト1を取得
 				Elements texts = doc.select(".a-section.a-spacing-medium.a-spacing-top-small");
 				Elements lineTexts = texts.select(".a-list-item");
-				String productText = null;
+				String productText = "";
+				String appendText = "";
 				//商品テキスト1をラインごとに取得し、<br>と共に足し合わせる
 				for (Element text : lineTexts) {
-					productText = productText + text.text() + "<br>";
+					appendText = text.text() + "<br>";
+					for(ngwordModel val : titleVal) {
+						if(val.getLevel() == "2") {
+							if(text.text().contains(val.getWord())) {
+								appendText = "";
+							}
+						}
+					}
+					productText = productText + appendText;
 				};
+				for(ngwordModel val : titleVal) {
+					if(val.getLevel() == "1") {
+						if(productText.contains(val.getWord())) {
+							productText = "";
+						}
+					}
+				}
+
 				//下部の商品テキストを取得
 //				Elements texts2 = doc.select(".aplus-v2.desktop.celwidget").select(".a-column.a-span4.a-spacing-base.a-span-last");
 				//取得するか検討中
@@ -112,23 +137,29 @@ public class Detail {
 
 				//画像のURL取得
 				Elements imageWapperElement = doc.select(".image.item.itemNo0.maintain-height.selected");
+//				System.out.println(imageWapperElement);
 				Elements imageElements = imageWapperElement.select(".imgTagWrapper");
-				String imageUrl = imageElements.attr("href");
+//				System.out.println(imageElements);
+				String imageUrl = imageElements.select("img").attr("data-old-hires");
 				String imageName = Image.getImage(imageUrl);
 
-				//カテゴリー算出(要改造)
+				//カテゴリー算出
+
+				Category ct = new Category();
 				String categoryId = "";
 				String yCategory = "";
 				try {
-					Search cateData = new Search(categorySearchData);
-					categoryId = cateData.categoryId;
-					yCategory = cateData.category;
-				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
+					ct.calCategory(productText, categorySearchData);
+					categoryId = ct.categoryId;
+					yCategory = ct.category;
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO 自動生成された catch ブロック
+					e1.printStackTrace();
 				}
 
 
-				System.out.println(title.text());
+
+				System.out.println(title);
 				System.out.println(price);
 				System.out.println(selection.text());
 				System.out.println(productText);
@@ -139,7 +170,14 @@ public class Detail {
 				String text = selection.text() + "<br>" + productText;
 				String strDate = toStr(LocalDateTime.now(), "yyyy/MM/dd");
 				try {
-					SqliteDBJ.insertData(asin, title.text(), url, text, price, category, maker, bland, strDate, categoryId, yCategory,imageName);
+					if(asin == "" || title == "") {
+					}else {
+						if(price == "" || text == "") {
+						}else {
+							SqliteDBJ.insertData(asin.replace("ASIN: ",""), title, url, text, price, category, maker, bland, strDate, categoryId, yCategory,imageName);
+						}
+					}
+
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO 自動生成された catch ブロック
 					e.printStackTrace();
@@ -162,7 +200,8 @@ public class Detail {
 
     }
 
-	public Detail(List<String> pruductionUrl){
+	public Detail(List<String> pruductionUrl) throws ClassNotFoundException, SQLException{
+		Detail.titleVal = SqliteDBJ.searchAllDataNg();
 		Detail.pruductionUrl = pruductionUrl;
 		GetDetail(Detail.pruductionUrl);
 	}

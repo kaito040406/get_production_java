@@ -14,6 +14,7 @@ public class Scra {
 	String furl = null;
 	public static int maxCount = 0;
 	public static int counter = 0;
+	public static int acquisition = 5;
 	public static void FirstPage(String url) throws IOException, InterruptedException {
 		if (counter++ < maxCount) {
 			Document doc = Jsoup.connect(url).get();
@@ -29,8 +30,26 @@ public class Scra {
 			}
 			for (Element data : datas) {
 				Elements title = data.select(".a-link-normal.a-text-normal");
-				accessUrl.add("https://www.amazon.co.jp" + title.attr("href"));
-				System.out.println("https://www.amazon.co.jp" + title.attr("href"));
+				String prime = data.select(".a-icon.a-icon-prime.a-icon-medium").attr("aria-label");
+				String wBuy = data.select(".a-size-base.s-addon-highlight-color.s-highlighted-text-padding.aok-inline-block").text();
+				Elements colorEl = data.select(".a-row.a-size-base.a-color-secondary");
+				Elements colors = colorEl.select(".a-color-price");
+				int intColor = 100;
+				for(Element color : colors) {
+					if(color.text().contains("残り")) {
+						intColor = Integer.valueOf(color.text().replaceAll("[^0-9]", ""));
+					}
+				}
+				if(prime.equals("Amazon プライム")) {
+					if(!wBuy.contains("あわせ買い対象商品")) {
+						System.out.println("あわせ買い" + wBuy);
+						if(intColor > acquisition) {
+							System.out.println("在庫は" + intColor);
+							accessUrl.add("https://www.amazon.co.jp" + title.attr("href"));
+							System.out.println("https://www.amazon.co.jp" + title.attr("href"));
+						}
+					}
+				}
 				try {
 					Thread.sleep(300);
 				} catch (InterruptedException e1) {
@@ -51,9 +70,10 @@ public class Scra {
 		System.out.println("次のページ");
 		FirstPage(url);
 	}
-	public Scra(String url, Integer count) throws IOException, InterruptedException{
+	public Scra(String url, Integer count, Integer getNumber) throws IOException, InterruptedException{
 		this.furl = url;
 		Scra.maxCount = count;
+		Scra.acquisition = getNumber;
 		FirstPage(this.furl);
 	}
 

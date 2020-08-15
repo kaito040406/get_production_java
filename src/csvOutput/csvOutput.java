@@ -6,16 +6,34 @@ import java.sql.SQLException;
 
 import dbj.SqliteDBJ;
 import javafx.collections.ObservableList;
-import model.ngwordModel;
+import model.productionModel;
 
 public class csvOutput {
 	public static void output() throws ClassNotFoundException, SQLException, IOException {
-		ObservableList<ngwordModel> Datas = SqliteDBJ.searchAllDataNg();
+		ObservableList<productionModel> Datas = SqliteDBJ.searchAllData();
 		FileWriter fileWriter = new FileWriter("CSV/test.csv");
-		for(ngwordModel Data :Datas) {
-			fileWriter.append(Data.getWord());
+		for(productionModel Data :Datas) {
+			fileWriter.append(Data.getAsin());
 			fileWriter.append(",");
-			fileWriter.append(Data.getLevel());
+			fileWriter.append(Data.getName());
+			fileWriter.append(",");
+			fileWriter.append(Data.getUrl());
+			fileWriter.append(",");
+			fileWriter.append(Data.getMemo());
+			fileWriter.append(",");
+			fileWriter.append(Data.getPrice());
+			fileWriter.append(",");
+			fileWriter.append(Data.getCategory());
+			fileWriter.append(",");
+			fileWriter.append(Data.getMaker());
+			fileWriter.append(",");
+			fileWriter.append(Data.getBland());
+			fileWriter.append(",");
+			fileWriter.append(Data.getCategoryId());
+			fileWriter.append(",");
+			fileWriter.append(Data.getYCatedory());
+			fileWriter.append(",");
+			fileWriter.append(Data.getImage());
 			fileWriter.append("\r\n");
 		}
 		try {

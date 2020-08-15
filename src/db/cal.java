@@ -22,14 +22,9 @@ import model.searchIdModel;
 public class cal {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		String aaa = null;
 		Tokenizer tokenizer = Tokenizer.builder().build();
-        List<Token> tokens = tokenizer.tokenize("アイリスオーヤマ 2口 IHクッキングヒーター 工事不要 1400W 100V 脚付き ブラック IHK-W12SP-B 商品サイズ(cm):幅約56×奥行約40×高さ約18\n" +
-        		"材質:【本体】ポリアミド樹脂、【トッププレート】結晶化ガラス\n" +
-        		"電源:AC100V(50/60Hz共用)\n" +
-        		"消費電力:1400W\n" +
-        		"製品仕様:【火力調整】〈左ヒーター>加熱調理:6段階(約100W相当から約1400W)、揚げ物調理:6段階(150~200℃)〈右ヒーター〉加熱調理:4段階(約100W相当から約700W) 【コードの長さ】約1.6m 【タイマー】1分から9時間50分\n" +
-        		"使えるなべ:【材質】鉄・鉄鋳物、耐熱ほうろう、ステンレス、多層鋼なべ【大きさ】〈左ヒーター〉直径12から26cmのもの※湯わかしの場合は直径15から23cm、〈右ヒーター〉直径12から20cmのもの【形状】底の平らなもの、反りが3mm以下のもの\n" +
-        		"使えないなべ:【材質】耐熱ガラス、陶磁器・土なべ、アルミ・銅 【大きさ】直径12cm未満のもの、トッププレートからはみ出すサイズのもの 【形状】中華なべなど底が丸いもの、底に段がありトッププレートに密着しないもの、脚があるもの※IH調理器では、材質や大きさにより使える鍋と使えない鍋があります。使用する鍋は、財団法人「製品安全協会」のSGマークのあるものをお勧めします。");
+        List<Token> tokens = tokenizer.tokenize(aaa);
         List<String> outputs = new ArrayList<String>();
         List<String> countOutputs = new ArrayList<String>();
         List<String> lists = new ArrayList<String>();

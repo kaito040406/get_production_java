@@ -31,6 +31,8 @@ public class SampleController {
 
 	@FXML private TextField page;
 
+	@FXML private TextField number;
+
 	@FXML Button button;
 
     @FXML
@@ -71,6 +73,7 @@ public class SampleController {
 //		int count = 1;
 		String url = urlData.getText();
 		int count = Integer.parseInt(page.getText());
+		int getNumber = Integer.parseInt(number.getText());
 		System.out.println(url);
 		System.out.println(count);
 //		System.exit(0);
@@ -79,7 +82,7 @@ public class SampleController {
 		SqliteDB.dbUpdate("delete from productionTbl;");
 //
 //		//ページのURLを取得
-		Scra pageUrls = new Scra(url, count);
+		Scra pageUrls = new Scra(url, count, getNumber);
 //
 ////		System.out.println(pageUrls.accessUrl);
 //		//詳細ページを取得

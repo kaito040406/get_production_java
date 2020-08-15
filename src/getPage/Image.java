@@ -16,9 +16,11 @@ public class Image {
 	public static String getImage(String accessurl) {
 		//ランダム文字列生成
         UUID filename = UUID.randomUUID();
+        System.out.println(accessurl);
 	    try {
 
-	    	Thread.sleep(500);
+	    	Thread.sleep(1000);
+//	    	System.out.println(accessurl);
 
 	        URL url = new URL(accessurl);
 
