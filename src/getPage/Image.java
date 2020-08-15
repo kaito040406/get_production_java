@@ -1,4 +1,4 @@
-package db;
+package getPage;
 
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
@@ -12,14 +12,15 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.UUID;
 
-public class image {
-
-	public static void main(String[] args) {
+public class Image {
+	public static String getImage(String accessurl) {
+		//ランダム文字列生成
+        UUID filename = UUID.randomUUID();
 	    try {
 
 	    	Thread.sleep(500);
 
-	        URL url = new URL("https://images-na.ssl-images-amazon.com/images/I/51Mleyl8WAL._AC_SX679_.jpg");
+	        URL url = new URL(accessurl);
 
 	        HttpURLConnection conn =
 	        	(HttpURLConnection) url.openConnection();
@@ -41,14 +42,12 @@ public class image {
 
 	        // Output Stream
 
-	        //ランダム文字列生成
-	        UUID filename = UUID.randomUUID();
+
 
 	         DataOutputStream dataOutStream
 	           = new DataOutputStream(
 	            new BufferedOutputStream(
 	              new FileOutputStream("images/"+ filename +".jpg")));
-
 	        // Read Data
 	        byte[] b = new byte[4096];
 	        int readByte = 0;
@@ -72,7 +71,9 @@ public class image {
 	      } catch (Exception e) {
 	        e.printStackTrace();
 	      }
+	    return filename.toString();
 
-	    }
+
 	}
 
+}

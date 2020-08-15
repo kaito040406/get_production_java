@@ -14,7 +14,7 @@
    <bottom>
       <VBox prefHeight="646.0" prefWidth="778.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField prefHeight="27.0" prefWidth="452.0" text="URL">
+            <TextField fx:id="urlData" onAction="#onClick" prefHeight="27.0" prefWidth="452.0" promptText="url">
                <VBox.margin>
                   <Insets left="70.0" right="70.0" top="30.0" />
                </VBox.margin>
@@ -23,6 +23,7 @@
                <children>
                   <Button fx:id="button" layoutX="472.0" layoutY="10.0" mnemonicParsing="false" onAction="#onClick" prefHeight="31.0" prefWidth="77.0" text="Start" />
                   <Button fx:id="setting" layoutX="563.0" layoutY="12.0" mnemonicParsing="false" onAction="#nextPage" text="Setting" />
+                  <TextField fx:id="page" layoutX="71.0" layoutY="12.0" onAction="#onClick" prefHeight="27.0" prefWidth="93.0" promptText="取得ページ数" />
                </children>
             </Pane>
             <TableView fx:id="productiontable" prefHeight="408.0" prefWidth="693.0">
@@ -38,7 +39,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </TableView>
-            <Button mnemonicParsing="false" text="Export">
+            <Button fx:id="export" mnemonicParsing="false" onAction="#exportData" text="Export">
                <VBox.margin>
                   <Insets left="550.0" top="30.0" />
                </VBox.margin>

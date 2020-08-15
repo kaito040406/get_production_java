@@ -12,12 +12,12 @@ import model.searchIdModel;
 
 public class SqliteDBJ {
 	// 登録
-	  public static void insertData (String asin, String name, String url, String memo, String price, String category, String maker, String bland ,String date, String categoryId, String yCategory) throws SQLException, ClassNotFoundException {
+	  public static void insertData (String asin, String name, String url, String memo, String price, String category, String maker, String bland ,String date, String categoryId, String yCategory, String imageName) throws SQLException, ClassNotFoundException {
 	    String insertStmt;
 	    // SQL文の作成
 	    insertStmt = "INSERT INTO productionTbl" +
-	                  "(asin, name, url, memo, price, category, maker ,bland, date, categoryId, yCategory)" +
-	                  "VALUES('" + asin + "','" + name + "','" + url + "','" + memo + "','" + price + "','" + category + "','" + maker + "','" + bland + "','" +   date + "','" +  categoryId + "','" + yCategory +"')";
+	                  "(asin, name, url, memo, price, category, maker ,bland, date, categoryId, yCategory, image)" +
+	                  "VALUES('" + asin + "','" + name + "','" + url + "','" + memo + "','" + price + "','" + category + "','" + maker + "','" + bland + "','" +   date + "','" +  categoryId + "','" + yCategory +"','" + imageName +"')";
 	    try {
 	      // SqliteDBクラスへSQLを発行
 	      SqliteDB.dbUpdate(insertStmt);
@@ -42,7 +42,8 @@ public class SqliteDBJ {
 		      rs.getString("bland"),
 		      rs.getString("date"),
 		      rs.getString("categoryId"),
-		      rs.getString("yCategory")));
+		      rs.getString("yCategory"),
+		      rs.getString("image")));
 		    }
 		      return data;
 		  }

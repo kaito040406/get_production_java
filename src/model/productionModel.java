@@ -17,9 +17,10 @@ public class productionModel {
 	public final SimpleStringProperty categoryId;
 	public final SimpleStringProperty yCategory;
 	
+	public final SimpleStringProperty image;
 
 
-	public productionModel(int id, String asin, String name, String memo, String url, String price, String category, String maker, String bland, String date, String categoryId, String yCategory) {
+	public productionModel(int id, String asin, String name, String memo, String url, String price, String category, String maker, String bland, String date, String categoryId, String yCategory, String image) {
 		this.id = new SimpleIntegerProperty(id);
 		this.asin = new SimpleStringProperty(asin);
 		this.name = new SimpleStringProperty(name);
@@ -32,6 +33,7 @@ public class productionModel {
 		this.date = new SimpleStringProperty(date);
 		this.categoryId = new SimpleStringProperty(categoryId);
 		this.yCategory = new SimpleStringProperty(yCategory);
+		this.image = new SimpleStringProperty(image);
 	}
 
 	public int getId() {
@@ -103,8 +105,14 @@ public class productionModel {
 	public String getYCatedory() {
 		return this.yCategory.get();
 	}
-	public void setYCategory(String yCategory) {
-		this.yCategory.set(yCategory);
+	public void setYCategory(String image) {
+		this.yCategory.set(image);
+	}
+	public String getImage() {
+		return this.yCategory.get();
+	}
+	public void setImage(String image) {
+		this.yCategory.set(image);
 	}
 
 

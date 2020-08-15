@@ -4,8 +4,10 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import csvOutput.csvOutput;
 import db.SqliteDB;
 import dbj.SqliteDBJ;
+import fileDelete.imageDelete;
 import getPage.Detail;
 import getPage.Scra;
 import getPage.TableData;
@@ -19,12 +21,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.productionModel;
 
 public class SampleController {
+	@FXML private TextField urlData;
+
+	@FXML private TextField page;
+
 	@FXML Button button;
+
     @FXML
     private TableView<TableData> productiontable;
     @FXML
@@ -42,17 +50,29 @@ public class SampleController {
 //    private ObservableList<productionModel> data;
 
 	@SuppressWarnings("unchecked")
+
+
+
 	@FXML
 	public void onClick(ActionEvent e) throws IOException, InterruptedException, ClassNotFoundException, SQLException {
+		
+		
+
 
 		try {
 	        SqliteDBJ.dataDelete();
 	      } catch (SQLException | ClassNotFoundException ex) {
 	        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 	      }
-
-		String url = "https://www.amazon.co.jp/s?i=fashion-mens-shoes&bbn=2016926051&rh=n%3A2016926051%2Cp_76%3A2227292051&dc&fst=as%3Aoff&qid=1596547791&ref=sr_ex_n_1";
-		int count = 1;
+		imageDelete fileDel = new imageDelete();
+		fileDel.delete();
+//		String url = "https://www.amazon.co.jp/s?i=fashion-mens-shoes&bbn=2016926051&rh=n%3A2016926051%2Cp_76%3A2227292051&dc&fst=as%3Aoff&qid=1596547791&ref=sr_ex_n_1";
+//		int count = 1;
+		String url = urlData.getText();
+		int count = Integer.parseInt(page.getText());
+		System.out.println(url);
+		System.out.println(count);
+		System.exit(0);
 //
 //		//実行前に前回のデータを削除
 		SqliteDB.dbUpdate("delete from productionTbl;");
@@ -99,6 +119,12 @@ public class SampleController {
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.show();
+	}
+
+	@FXML
+	void exportData(ActionEvent event) throws IOException, ClassNotFoundException, SQLException{
+		csvOutput.output();
+		System.out.println("出力完了");
 	}
 
 }

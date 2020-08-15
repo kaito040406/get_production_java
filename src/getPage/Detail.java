@@ -110,6 +110,11 @@ public class Detail {
 					}
 				}
 
+				//画像のURL取得
+				Elements imageWapperElement = doc.select(".image.item.itemNo0.maintain-height.selected");
+				Elements imageElements = imageWapperElement.select(".imgTagWrapper");
+				String imageUrl = imageElements.attr("href");
+				String imageName = Image.getImage(imageUrl);
 
 				//カテゴリー算出(要改造)
 				String categoryId = "";
@@ -134,7 +139,7 @@ public class Detail {
 				String text = selection.text() + "<br>" + productText;
 				String strDate = toStr(LocalDateTime.now(), "yyyy/MM/dd");
 				try {
-					SqliteDBJ.insertData(asin, title.text(), url, text, price, category, maker, bland, strDate, categoryId, yCategory);
+					SqliteDBJ.insertData(asin, title.text(), url, text, price, category, maker, bland, strDate, categoryId, yCategory,imageName);
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO 自動生成された catch ブロック
 					e.printStackTrace();
