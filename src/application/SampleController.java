@@ -55,24 +55,25 @@ public class SampleController {
 
 	@FXML
 	public void onClick(ActionEvent e) throws IOException, InterruptedException, ClassNotFoundException, SQLException {
-		
-		
 
 
+
+		//前回分のデータを削除
 		try {
 	        SqliteDBJ.dataDelete();
+	        imageDelete fileDel = new imageDelete();
+			fileDel.delete();
 	      } catch (SQLException | ClassNotFoundException ex) {
 	        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 	      }
-		imageDelete fileDel = new imageDelete();
-		fileDel.delete();
+
 //		String url = "https://www.amazon.co.jp/s?i=fashion-mens-shoes&bbn=2016926051&rh=n%3A2016926051%2Cp_76%3A2227292051&dc&fst=as%3Aoff&qid=1596547791&ref=sr_ex_n_1";
 //		int count = 1;
 		String url = urlData.getText();
 		int count = Integer.parseInt(page.getText());
 		System.out.println(url);
 		System.out.println(count);
-		System.exit(0);
+//		System.exit(0);
 //
 //		//実行前に前回のデータを削除
 		SqliteDB.dbUpdate("delete from productionTbl;");
