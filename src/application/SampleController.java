@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import csvOutput.csvOutput;
 import db.SqliteDB;
@@ -58,8 +60,6 @@ public class SampleController {
 	@FXML
 	public void onClick(ActionEvent e) throws IOException, InterruptedException, ClassNotFoundException, SQLException {
 
-
-
 		//前回分のデータを削除
 		try {
 	        SqliteDBJ.dataDelete();
@@ -72,39 +72,49 @@ public class SampleController {
 //		String url = "https://www.amazon.co.jp/s?i=fashion-mens-shoes&bbn=2016926051&rh=n%3A2016926051%2Cp_76%3A2227292051&dc&fst=as%3Aoff&qid=1596547791&ref=sr_ex_n_1";
 //		int count = 1;
 		String url = urlData.getText();
-		int count = Integer.parseInt(page.getText());
-		int getNumber = Integer.parseInt(number.getText());
-		System.out.println(url);
-		System.out.println(count);
-//		System.exit(0);
-//
-//		//実行前に前回のデータを削除
-		SqliteDB.dbUpdate("delete from productionTbl;");
-//
-//		//ページのURLを取得
-		Scra pageUrls = new Scra(url, count, getNumber);
-//
-////		System.out.println(pageUrls.accessUrl);
-//		//詳細ページを取得
-		Detail purodDetail = new Detail(pageUrls.accessUrl);
+		String regex_num = "^[0-9]+$";
+		Pattern p1 = Pattern.compile(regex_num);
+		Matcher m1 = p1.matcher(page.getText());
+		Matcher m2 = p1.matcher(number.getText());
+		boolean result1 = m1.matches();
+		boolean result2 = m2.matches();
+		if(url.contains("https://www.amazon.co.jp/")) {
+			if(result1 && result2) {
+				int count = Integer.parseInt(page.getText());
+				int getNumber = Integer.parseInt(number.getText());
+				System.out.println(url);
+				System.out.println(count);
+		//		System.exit(0);
+		//
+		//		//実行前に前回のデータを削除
+				SqliteDB.dbUpdate("delete from productionTbl;");
+		//
+		//		//ページのURLを取得
+				Scra pageUrls = new Scra(url, count, getNumber);
+		//
+		////		System.out.println(pageUrls.accessUrl);
+		//		//詳細ページを取得
+				Detail purodDetail = new Detail(pageUrls.accessUrl);
 
-		data = FXCollections.observableArrayList();
-		productiontable.itemsProperty().setValue(data);
-		productiontable.setItems(data);
+				data = FXCollections.observableArrayList();
+				productiontable.itemsProperty().setValue(data);
+				productiontable.setItems(data);
 
-		asin.setCellValueFactory(new PropertyValueFactory<TableData, String>("asin"));
-		title.setCellValueFactory(new PropertyValueFactory<TableData, String>("name"));
-		text.setCellValueFactory(new PropertyValueFactory<TableData, String>("text"));
-		price.setCellValueFactory(new PropertyValueFactory<TableData, String>("price"));
-		accessurl.setCellValueFactory(new PropertyValueFactory<TableData, String>("url"));
-//
-//		//詳細データの取得
-		ObservableList<productionModel> searchDatas = SqliteDBJ.searchAllData();
-		System.out.println(searchDatas.size());
-		for(productionModel searchData :searchDatas) {
-			System.out.println(searchData.getAsin());
-//			table.getColumns().addAll(searchData.getAsin(), searchData.getAsin(), addresscolumn, memocolumn, datecolumn);
-			data.addAll(new TableData(searchData.getAsin(),searchData.getName(),searchData.getMemo(),searchData.getPrice(),searchData.getUrl()));
+				asin.setCellValueFactory(new PropertyValueFactory<TableData, String>("asin"));
+				title.setCellValueFactory(new PropertyValueFactory<TableData, String>("name"));
+				text.setCellValueFactory(new PropertyValueFactory<TableData, String>("text"));
+				price.setCellValueFactory(new PropertyValueFactory<TableData, String>("price"));
+				accessurl.setCellValueFactory(new PropertyValueFactory<TableData, String>("url"));
+		//
+		//		//詳細データの取得
+				ObservableList<productionModel> searchDatas = SqliteDBJ.searchAllData();
+				System.out.println(searchDatas.size());
+				for(productionModel searchData :searchDatas) {
+					System.out.println(searchData.getAsin());
+		//			table.getColumns().addAll(searchData.getAsin(), searchData.getAsin(), addresscolumn, memocolumn, datecolumn);
+					data.addAll(new TableData(searchData.getAsin(),searchData.getName(),searchData.getMemo(),searchData.getPrice(),searchData.getUrl()));
+				}
+			}
 		}
 	}
 
@@ -119,7 +129,7 @@ public class SampleController {
 
 	void settingWindow() throws IOException, ClassNotFoundException, SQLException{
 		Parent parent = FXMLLoader.load(getClass().getResource("Setting.fxml"));
-		Scene scene = new Scene(parent,400,650);
+		Scene scene = new Scene(parent,370,650);
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.show();

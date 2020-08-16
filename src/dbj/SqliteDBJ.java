@@ -27,6 +27,33 @@ public class SqliteDBJ {
 	    }
 	  }
 
+	 //NGword登録
+	  public static void insertDataNg(String word, String level) throws ClassNotFoundException, SQLException {
+		  String insertStmt;
+		  insertStmt = "INSERT INTO ngWordTbl" +
+				  		"(word, level)" +
+				  		"VALUES('" + word + "','" + level +"')";
+	    try {
+		      // SqliteDBクラスへSQLを発行
+		      SqliteDB.dbUpdate(insertStmt);
+		    } catch (SQLException ex) {
+		        System.out.println("登録処理に失敗しました!。\n" + ex );
+		        throw ex;
+		    }
+	  }
+
+	//NGword削除
+	  public static void deleteDataNg(Integer id) throws ClassNotFoundException, SQLException {
+		  String insertStmt;
+		  insertStmt = "DELETE FROM ngWordTbl WHERE id="+ id +";";
+	    try {
+		      // SqliteDBクラスへSQLを発行
+		      SqliteDB.dbUpdate(insertStmt);
+		    } catch (SQLException ex) {
+		        System.out.println("削除処理に失敗しました!。\n" + ex );
+		        throw ex;
+		    }
+	  }
 	  private static ObservableList<productionModel> searchAllDataList(ResultSet rs) throws SQLException, ClassNotFoundException {
 		    ObservableList<productionModel> data = FXCollections.observableArrayList();
 		    while (rs.next()){
@@ -53,6 +80,7 @@ public class SqliteDBJ {
 	    ObservableList<ngwordModel> data = FXCollections.observableArrayList();
 	    while (rs.next()){
 	      data.add(new ngwordModel(
+	      rs.getInt("id"),
 	      rs.getString("word"),
 	      rs.getString("level")));
 	    }

@@ -15,6 +15,7 @@ public class ngWordData {
 
 	public static void startDbCon() throws SQLException, ClassNotFoundException{
 		Statement stmt = null;
+		int i = 0;
 	     try {
 	       // sqlite JDBCドライバーの読み込み
 	       Class.forName("org.sqlite.JDBC");
@@ -29,7 +30,7 @@ public class ngWordData {
 	          stmt = con.createStatement();
 	          // テーブル作成
 	          try {
-		          stmt.executeUpdate("create table ngWordTbl(word text, level text)");
+		          stmt.executeUpdate("create table ngWordTbl(id integer primary key, word text, level text)");
 		          try {
 			    	 File f = new File("ngWord.csv");
 			    	 BufferedReader br = new BufferedReader(new FileReader(f));
@@ -37,10 +38,11 @@ public class ngWordData {
 			    	 String line;
 			    	 while ((line = br.readLine()) != null) {
 			    		 String[] data = line.split(",", 0);
+			    		 i = i + 1;
 			    		 try {
-			    			 stmt.executeUpdate("insert into ngWordTbl (word, level) " + "values (" + "'" + data[0] + "'" + "," + "'" + data[1] + "'" + ");");
+			    			 stmt.executeUpdate("insert into ngWordTbl (id, word, level) " + "values (" + "'" + i + "'"  + "," + "'"  + data[0] + "'" + ","  + "'" + data[1] + "'" + ");");
 			    		 }catch(SQLException ex) {
-			    			 System.out.println(data[1]);
+			    			 System.out.println(ex);
 			    		 }
 			    	    }
 			    	 br.close();
