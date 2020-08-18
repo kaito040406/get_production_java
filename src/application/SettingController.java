@@ -10,6 +10,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -18,10 +21,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ChoiceBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Stage;
 import model.ngwordModel;
 
 public class SettingController {
 	@FXML Button load;
+	@FXML Button price;
     @FXML
     private TableView<ngwordModel> ngwordtable;
     @FXML
@@ -35,6 +40,7 @@ public class SettingController {
     @FXML private TextField addWord;
     @FXML private ComboBox<String> combo;
     @FXML private TextField delWord;
+    @FXML private TextField price1000;
 
 	public void onLoad(ActionEvent e) throws IOException, InterruptedException, ClassNotFoundException, SQLException {
 		ngwords = FXCollections.observableArrayList();
@@ -95,6 +101,13 @@ public class SettingController {
 			SqliteDBJ.deleteDataNg(delId);
 			System.out.println("削除成功");
 		}
-
+	}
+	@FXML
+	public void price(ActionEvent e) throws IOException {
+		Parent parent = FXMLLoader.load(getClass().getResource("Price.fxml"));
+		Scene scene = new Scene(parent,370,650);
+		Stage stage = new Stage();
+		stage.setScene(scene);
+		stage.show();
 	}
 }

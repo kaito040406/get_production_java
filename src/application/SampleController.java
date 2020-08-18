@@ -51,6 +51,7 @@ public class SampleController {
     private TableColumn accessurl;
     @FXML
     private ObservableList<TableData> data;
+    
 //    private ObservableList<productionModel> data;
 
 	@SuppressWarnings("unchecked")

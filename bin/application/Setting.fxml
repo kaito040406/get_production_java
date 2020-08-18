@@ -22,9 +22,10 @@
                   <Font size="36.0" />
                </font>
             </Text>
+            <Button fx:id="settingPrice" layoutX="271.0" layoutY="78.0" mnemonicParsing="false" onAction="#price" text="setting price" />
          </children>
       </Pane>
-      <TableView fx:id="ngwordtable" prefHeight="380.0" prefWidth="385.0">
+      <TableView fx:id="ngwordtable" prefHeight="353.0" prefWidth="370.0">
         <columns>
           <TableColumn fx:id="check" prefWidth="44.0" text="num" />
           <TableColumn fx:id="word" prefWidth="160.0" text="Word" />

@@ -24,7 +24,7 @@
                   <Button fx:id="button" layoutX="472.0" layoutY="10.0" mnemonicParsing="false" onAction="#onClick" prefHeight="31.0" prefWidth="77.0" text="Start" />
                   <Button fx:id="setting" layoutX="563.0" layoutY="12.0" mnemonicParsing="false" onAction="#nextPage" text="Setting" />
                   <TextField fx:id="page" layoutX="71.0" layoutY="12.0" onAction="#onClick" prefHeight="27.0" prefWidth="98.0" promptText="取得ページ数" />
-                  <TextField fx:id="number" layoutX="191.0" layoutY="12.0" onAction="#onClick" prefHeight="27.0" prefWidth="93.0" promptText="取得ページ数" />
+                  <TextField fx:id="number" layoutX="191.0" layoutY="12.0" onAction="#onClick" prefHeight="27.0" prefWidth="93.0" promptText="最低在庫数" />
                </children>
             </Pane>
             <TableView fx:id="productiontable" prefHeight="408.0" prefWidth="693.0">
