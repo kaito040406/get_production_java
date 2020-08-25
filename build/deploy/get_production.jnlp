@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="get_production.jnlp">
+  <information>
+    <title>get_production</title>
+    <vendor>kaitohasegawa</vendor>
+    <description>get_production</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="get_production.jar" size="56540" download="eager" />
+    <jar href="libs/jsoup-1.13.1.jar" size="393867" download="eager" />
+    <jar href="libs/kuromoji-0.7.7.jar" size="11684781" download="eager" />
+    <jar href="libs/sqlite-jdbc-3.30.1.jar" size="6096861" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="0" height="0" main-class="application.Main"  name="get_production" />
+  <update check="background"/>
+</jnlp>

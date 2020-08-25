@@ -51,7 +51,7 @@ public class SampleController {
     private TableColumn accessurl;
     @FXML
     private ObservableList<TableData> data;
-    
+
 //    private ObservableList<productionModel> data;
 
 	@SuppressWarnings("unchecked")
@@ -95,7 +95,7 @@ public class SampleController {
 		//
 		////		System.out.println(pageUrls.accessUrl);
 		//		//詳細ページを取得
-				Detail purodDetail = new Detail(pageUrls.accessUrl);
+				Detail purodDetail = new Detail(pageUrls.accessUrl2);
 
 				data = FXCollections.observableArrayList();
 				productiontable.itemsProperty().setValue(data);
