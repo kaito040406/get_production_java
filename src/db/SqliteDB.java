@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetFactory;
@@ -14,6 +16,7 @@ public class SqliteDB {
 	private static Connection con = null;
 
 	public static void dbCon() throws SQLException, ClassNotFoundException{
+		Logger logger = Logger.getLogger("GB");
 		Statement stmt = null;
 	     try {
 	       // sqlite JDBCドライバーの読み込み
@@ -39,6 +42,8 @@ public class SqliteDB {
 	//検索
 	public static ResultSet dataQuery(String queryStmt) throws SQLException, ClassNotFoundException {
 	     // CachedRowSetはDBから取得したデータを、メモリ上に格納した状態でもデータの処理が可能。
+		Logger logger = Logger.getLogger("GB");
+		logger.log(Level.INFO,"検索開始");
 	     RowSetFactory rowSetFactory = RowSetProvider.newFactory();
 	     CachedRowSet rowSet = rowSetFactory.createCachedRowSet();
 
@@ -52,7 +57,7 @@ public class SqliteDB {
 	       System.out.println(resultSet);
 	       rowSet.populate(resultSet);
 	     } catch (SQLException ex) {
-	         System.out.println("検索に失敗しました！。\n" + ex);
+	         logger.log(Level.WARNING,"検索に失敗しました！。\n" + ex);
 	         throw ex;
 	     } finally {
 	         if (resultSet != null) {

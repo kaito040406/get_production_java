@@ -1,5 +1,6 @@
 package getPage;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -23,6 +24,7 @@ public class Detail {
 	public static Map<String,String> pruductionUrl2 = new HashMap<>();
 
 	public static void GetDetail(Map<String, String> urlList) throws  IndexOutOfBoundsException{
+		int i = 1;
 		for(Map.Entry<String, String> url : urlList.entrySet()) {
 			try {
 				System.out.println(url.getKey());
@@ -32,7 +34,8 @@ public class Detail {
 				//タイトル情報を取得
 				String title = doc.select(".a-size-large.product-title-word-break").text();
 				for(ngwordModel val : titleVal) {
-					if(val.getLevel() == "0") {
+					if(val.getLevel().equals("0")) {
+						System.out.println(val.getLevel());
 						if(title.contains(val.getWord())) {
 							title = "";
 						}
@@ -46,7 +49,7 @@ public class Detail {
 
 				//値段を取得
 				String priceText = doc.select(".a-size-medium.a-color-price.priceBlockBuyingPriceString").text().replace("￥", "").replace(",", "").replace(" ", "");
-				String price = null;
+				String price = "";
 				if(priceText.matches("^[0-9]*$")) {
 					price = priceText;
 				}
@@ -61,7 +64,7 @@ public class Detail {
 				for (Element text : lineTexts) {
 					appendText = text.text() + "<br>";
 					for(ngwordModel val : titleVal) {
-						if(val.getLevel() == "2") {
+						if(val.getLevel().equals("2")) {
 							if(text.text().contains(val.getWord())) {
 								appendText = "";
 							}
@@ -70,7 +73,7 @@ public class Detail {
 					productText = productText + appendText;
 				};
 				for(ngwordModel val : titleVal) {
-					if(val.getLevel() == "1") {
+					if(val.getLevel().equals("1")) {
 						if(productText.contains(val.getWord())) {
 							productText = "";
 						}
@@ -173,9 +176,11 @@ public class Detail {
 //				System.out.println(imageElements);
 				String imageUrl = imageElements.select("img").attr("data-old-hires");
 				String imageName = "";
-				if(!Image.getImage(imageUrl).equals("")) {
-					imageName = Image.getImage(imageUrl);
-				}
+				System.out.println(i);
+				imageName = Image.getImage(imageUrl,i);
+//				if(!Image.getImage(imageUrl,i).equals("")) {
+//					imageName = Image.getImage(imageUrl);
+//				}
 
 
 				System.out.println(url);
@@ -192,15 +197,23 @@ public class Detail {
 				System.out.println(category);
 				String text = selection.text() + "<br>" + productText;
 				String strDate = toStr(LocalDateTime.now(), "yyyy/MM/dd");
+				//ファイルを正しく保存できているかの確認
+				String filePath = "images/" + Integer.toString(i) + ".jpg";
 				try {
-					if(asin == null || title == "") {
+					if(asin == null || title.equals("")) {
 					}else {
-						if(price == "" || text == "") {
+						if(price.equals("")|| text.equals("")) {
 						}else {
-							if(!Image.getImage(imageUrl).equals("")) {
-								System.out.println("保存します");
-								SqliteDBJ.insertData(asin.replace("ASIN: ",""), title, url.getKey(), text, price, category, maker, bland, strDate, categoryId, yCategory,imageName);
-								System.out.println("保存成功");
+							if(!imageName.equals("")) {
+								//画像データ確認
+								File file = new File(filePath);
+								Boolean fileExists = file.exists();
+								if (fileExists) {
+									System.out.println("保存します");
+									SqliteDBJ.insertData(asin.replace("ASIN: ",""), title, url.getKey(), text, price, category, maker, bland, strDate, categoryId, yCategory,imageName);
+									i++;
+									System.out.println("保存成功");
+								}
 							}
 						}
 					}

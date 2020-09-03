@@ -2,6 +2,8 @@ package application;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,6 +45,8 @@ public class SettingController {
     @FXML private TextField price1000;
 
 	public void onLoad(ActionEvent e) throws IOException, InterruptedException, ClassNotFoundException, SQLException {
+		Logger logger = Logger.getLogger("GB");
+		logger.log(Level.INFO,"設定ページの表示");
 		ngwords = FXCollections.observableArrayList();
 		ngwordtable.itemsProperty().setValue(ngwords);
 		ngwordtable.setItems(ngwords);
@@ -72,6 +76,8 @@ public class SettingController {
 		}
 	}
 	public void add(ActionEvent e) throws ClassNotFoundException, SQLException {
+		Logger logger = Logger.getLogger("GB");
+		
 		String word = addWord.getText();
 //		System.out.println(word);
 		String setting = combo.getValue();
@@ -88,10 +94,11 @@ public class SettingController {
 				settingId = "1";
 			}
 			SqliteDBJ.insertDataNg(word,settingId);
-			System.out.println("保存成功");
+			logger.log(Level.INFO,"保存成功");
 		}
 	}
 	public void del(ActionEvent e) throws ClassNotFoundException, SQLException {
+		Logger logger = Logger.getLogger("GB");
 		String regex_num = "^[0-9]+$";
 		Pattern p1 = Pattern.compile(regex_num);
 		Matcher m1 = p1.matcher(delWord.getText());
@@ -99,7 +106,7 @@ public class SettingController {
 		if(!delWord.getText().equals("") && result) {
 			int delId = Integer.parseInt(delWord.getText());
 			SqliteDBJ.deleteDataNg(delId);
-			System.out.println("削除成功");
+			logger.log(Level.INFO,"削除成功");
 		}
 	}
 	@FXML

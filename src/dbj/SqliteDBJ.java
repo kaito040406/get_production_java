@@ -3,6 +3,8 @@ package dbj;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import db.SqliteDB;
 import javafx.collections.FXCollections;
@@ -11,15 +13,19 @@ import model.ngwordModel;
 import model.priceModel;
 import model.productionModel;
 import model.searchIdModel;
+import model.textModel;
 
 public class SqliteDBJ {
 	// 登録
 	  public static void insertData (String asin, String name, String url, String memo, String price, String category, String maker, String bland ,String date, String categoryId, String yCategory, String imageName) throws SQLException, ClassNotFoundException {
+		Logger logger = Logger.getLogger("GB");
 	    String insertStmt;
 	    // SQL文の作成
+	    logger.log(Level.INFO,"insert開始");
 	    insertStmt = "INSERT INTO productionTbl" +
 	                  "(asin, name, url, memo, price, category, maker ,bland, date, categoryId, yCategory, image)" +
 	                  "VALUES('" + asin + "','" + name + "','" + url + "','" + memo + "','" + price + "','" + category + "','" + maker + "','" + bland + "','" +   date + "','" +  categoryId + "','" + yCategory +"','" + imageName +"')";
+	    logger.log(Level.INFO,"insert完了");
 	    try {
 	      // SqliteDBクラスへSQLを発行
 	      SqliteDB.dbUpdate(insertStmt);
@@ -183,6 +189,7 @@ public class SqliteDBJ {
 		        throw ex;
 		    }
 	  }
+	  //商品の前検索
 	  public static ObservableList<priceModel> searchAllDataPrice() throws SQLException, ClassNotFoundException {
 		  String sql = "SELECT * FROM priceTbl order by price asc";
 		  try {
@@ -194,5 +201,28 @@ public class SqliteDBJ {
 		        throw ex;
 		    }
 	  }
+	  //テキストの前検索
+	  public static ObservableList<textModel> searchAllDataText() throws SQLException, ClassNotFoundException {
+		  String sql = "SELECT * FROM textTbl";
+		  try {
+			  ResultSet rs = SqliteDB.dataQuery(sql);
+		      ObservableList<textModel> data = searchAllTextList(rs);
+		      return data;
+		  } catch (SQLException ex) {
+		        System.out.println("全件の検索に失敗しました!。\n" + ex);
+		        throw ex;
+		    }
+	  }
+	  private static ObservableList<textModel> searchAllTextList(ResultSet rs) throws SQLException, ClassNotFoundException {
+		  ObservableList<textModel> data = FXCollections.observableArrayList();
+		    while (rs.next()){
+		      data.add(new textModel(
+		      rs.getString("text1"),
+		      rs.getString("text2"),
+		      rs.getString("text3")));
+		    }
+		      return data;
+	  }
+
 
 }

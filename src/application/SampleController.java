@@ -60,12 +60,14 @@ public class SampleController {
 
 	@FXML
 	public void onClick(ActionEvent e) throws IOException, InterruptedException, ClassNotFoundException, SQLException {
-
+		Logger logger = Logger.getLogger("GB");
 		//前回分のデータを削除
 		try {
+			logger.log(Level.INFO,"前回データ削除開始");
 	        SqliteDBJ.dataDelete();
 	        imageDelete fileDel = new imageDelete();
 			fileDel.delete();
+			logger.log(Level.INFO,"前回データ削除終了");
 	      } catch (SQLException | ClassNotFoundException ex) {
 	        Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 	      }
@@ -81,6 +83,7 @@ public class SampleController {
 		boolean result2 = m2.matches();
 		if(url.contains("https://www.amazon.co.jp/")) {
 			if(result1 && result2) {
+				logger.log(Level.INFO,"情報取得を開始します。");
 				int count = Integer.parseInt(page.getText());
 				int getNumber = Integer.parseInt(number.getText());
 				System.out.println(url);
@@ -88,14 +91,20 @@ public class SampleController {
 		//		System.exit(0);
 		//
 		//		//実行前に前回のデータを削除
+				logger.log(Level.INFO,"商品データをリセットします");
 				SqliteDB.dbUpdate("delete from productionTbl;");
+				logger.log(Level.INFO,"商品データをリセット完了");
 		//
 		//		//ページのURLを取得
+				logger.log(Level.INFO,"URL情報を取得いたします");
 				Scra pageUrls = new Scra(url, count, getNumber);
+				logger.log(Level.INFO,"URL情報の取得が完了しました");
 		//
 		////		System.out.println(pageUrls.accessUrl);
 		//		//詳細ページを取得
+				logger.log(Level.INFO,"詳細情報の取得を開始します");
 				Detail purodDetail = new Detail(pageUrls.accessUrl2);
+				logger.log(Level.INFO,"詳細情報の取得が完了しました");
 
 				data = FXCollections.observableArrayList();
 				productiontable.itemsProperty().setValue(data);
@@ -111,11 +120,14 @@ public class SampleController {
 				ObservableList<productionModel> searchDatas = SqliteDBJ.searchAllData();
 				System.out.println(searchDatas.size());
 				for(productionModel searchData :searchDatas) {
-					System.out.println(searchData.getAsin());
-		//			table.getColumns().addAll(searchData.getAsin(), searchData.getAsin(), addresscolumn, memocolumn, datecolumn);
 					data.addAll(new TableData(searchData.getAsin(),searchData.getName(),searchData.getMemo(),searchData.getPrice(),searchData.getUrl()));
 				}
+				logger.log(Level.INFO,"データの取得が完了しました");
+			}else {
+				logger.log(Level.INFO,"入力が不正です。");
 			}
+		}else {
+			logger.log(Level.INFO,"無効なURLです。");
 		}
 	}
 

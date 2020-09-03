@@ -10,16 +10,16 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.UUID;
 
 public class Image {
-	public static String getImage(String accessurl) {
+	public static String getImage(String accessurl, int num) {
 		//ランダム文字列生成
-        UUID filename = UUID.randomUUID();
+//        UUID filename = UUID.randomUUID();
+		String filename = Integer.toString(num);
         System.out.println(accessurl);
 	    try {
 
-	    	Thread.sleep(1000);
+	    	Thread.sleep(700);
 //	    	System.out.println(accessurl);
 
 	        URL url = new URL(accessurl);

@@ -2,7 +2,9 @@ package getPage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -11,6 +13,7 @@ import org.jsoup.select.Elements;
 
 public class Scra {
 	public static List<String> accessUrl = new ArrayList<>();
+	public static Map<String,String> accessUrl2 = new HashMap<>();
 	String furl = null;
 	public static int maxCount = 0;
 	public static int counter = 0;
@@ -34,6 +37,21 @@ public class Scra {
 				String wBuy = data.select(".a-size-base.s-addon-highlight-color.s-highlighted-text-padding.aok-inline-block").text();
 				Elements colorEl = data.select(".a-row.a-size-base.a-color-secondary");
 				Elements colors = colorEl.select(".a-color-price");
+
+
+				//Asin取得
+				String asinElement = data.select(".rush-component").attr("data-component-props");
+				String[] asinList = asinElement.split(",");
+				String asin = "";
+				for(String asinData : asinList) {
+					System.out.println(asinData);
+					if(asinData.contains("asin")) {
+						asin = asinData.replace("\"asin\":\"","").replace("\"}","");
+						System.out.println(asin);
+					}
+				}
+
+
 				int intColor = 100;
 				for(Element color : colors) {
 					if(color.text().contains("残り")) {
@@ -42,12 +60,17 @@ public class Scra {
 				}
 				if(prime.equals("Amazon プライム")) {
 					if(!wBuy.contains("あわせ買い対象商品")) {
-						System.out.println("あわせ買い" + wBuy);
 						if(intColor > acquisition) {
 							System.out.println("在庫は" + intColor);
 							accessUrl.add("https://www.amazon.co.jp" + title.attr("href"));
+
+							accessUrl2.put("https://www.amazon.co.jp" + title.attr("href"), asin);
+
 							System.out.println("https://www.amazon.co.jp" + title.attr("href"));
 						}
+					}
+					else {
+						System.out.println("あわせ買い" + wBuy +"除去");
 					}
 				}
 //				try {
