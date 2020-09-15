@@ -26,11 +26,11 @@ public class csvOutput {
 		BigDecimal sellPrice = null;
 		String productText;
 		int i = 0;
-		fileWriter.append("カテゴリId");//カテゴリId
+		fileWriter.append("カテゴリ");//カテゴリId
 		fileWriter.append(",");
-		fileWriter.append("商品タイトル");//商品タイトル
+		fileWriter.append("タイトル");//商品タイトル
 		fileWriter.append(",");
-		fileWriter.append("商品テキスト");//商品テキスト
+		fileWriter.append("説明");//商品テキスト
 		fileWriter.append(",");
 		fileWriter.append("開始価格");//開始価格
 		fileWriter.append(",");
@@ -152,8 +152,6 @@ public class csvOutput {
 		fileWriter.append(",");
 		fileWriter.append("はこBOON離島料金");//はこBOON離島料金
 		fileWriter.append(",");
-		fileWriter.append("はこBOON離島料金");//はこBOON離島料金
-		fileWriter.append(",");
 		fileWriter.append("はこBOONmini");//はこBOONmini
 		fileWriter.append(",");
 		fileWriter.append("発送元店舗");//発送元店舗
@@ -207,8 +205,6 @@ public class csvOutput {
 		fileWriter.append("北海道料金5");//北海道料金5
 		fileWriter.append(",");
 		fileWriter.append("沖縄料金5");//沖縄料金5
-		fileWriter.append(",");
-		fileWriter.append("離島料金5");//離島料金5
 		fileWriter.append(",");
 		fileWriter.append("離島料金5");//離島料金5
 		fileWriter.append(",");
@@ -412,13 +408,11 @@ public class csvOutput {
 				fileWriter.append(",");
 				fileWriter.append("");//はこBOON離島料金
 				fileWriter.append(",");
-				fileWriter.append("");//はこBOON離島料金
-				fileWriter.append(",");
 				fileWriter.append("いいえ");//はこBOONmini
 				fileWriter.append(",");
 				fileWriter.append("");//発送元店舗
 				fileWriter.append(",");
-				fileWriter.append("3日〜6日");//発送までの日数
+				fileWriter.append("3日～6日");//発送までの日数
 				fileWriter.append(",");
 				fileWriter.append("配送委託会社にて一律料金");//発送方法1
 				fileWriter.append(",");
@@ -467,8 +461,6 @@ public class csvOutput {
 				fileWriter.append("");//北海道料金5
 				fileWriter.append(",");
 				fileWriter.append("");//沖縄料金5
-				fileWriter.append(",");
-				fileWriter.append("");//離島料金5
 				fileWriter.append(",");
 				fileWriter.append("");//離島料金5
 				fileWriter.append(",");
