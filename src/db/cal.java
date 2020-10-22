@@ -47,57 +47,22 @@ public class cal {
         	 }
         }
         List<String> ctLists = ctLists0.stream().distinct().collect(Collectors.toList());
-        System.out.println(ctLists);
-
-
-
         List<String> outputs2 = new ArrayList<String>();
-//        lists.add("競技備品");
-//        lists.add("健康サポート機器");
-//        lists.add("活動量計");
-
-//        for (Token token : tokens) {
-//            System.out.println("====================");
-            // allFeatures tokenの全ての要素を出力
-//            System.out.println("allFeatures: " + token.getAllFeatures());
-            // partOfSpeech 品詞など形態素上で意味のある言葉を出力
-//            System.out.println("partOfSpeech: " + token.getPartOfSpeech());
-            // position 単語の位置を出力
-//            System.out.println("partOfSpeech: " + token.getPosition());
-            // reading カナ読みを出力
-//            System.out.println("reading: " + token.getReading());
-            // surfaceForm 元の単語を出力
-//            System.out.println("surfaceFrom: " + token.getSurfaceForm());
-            // allFeaturesArray allFeaturesをArray型で返す
-//            System.out.println("allFeaturesArray" + token.getAllFeaturesArray());
-            // isKnown 辞書にある言葉かどうか
-//            System.out.println("isKnown: " + token.isKnown());
-            // isUnknown 辞書にない言葉かどうか、isKnownと反対の結果が出力される
-//            System.out.println("isUnKnown: " + token.isUnknown());
-            // isUser ユーザーで定義した言葉かどうか
-//            System.out.println("User: " + token.isUser());
-//        }
         for (Token token : tokens) {
-//        	System.out.println("surfaceFrom: " + token.getSurfaceForm());
-//        	System.out.println("partOfSpeech: " + token.getPartOfSpeech());
         	if(token.getSurfaceForm().length() > 2) {
         		String SQL1 = "select * from categoryTbl where category like '%" + token.getSurfaceForm() + "%';";
         		ObservableList<categoryModel> datas = searchCategory(SQL1);
         		for(categoryModel data : datas) {
 					outputs.add(data.getCategory());
-//					System.out.println(data.getCategory());
         		}
         	}
         }
 
 		java.util.Map<String, Integer> map = outputs.stream().collect(
                 Collectors.groupingBy(
-                        //MapのキーにはListの要素をそのままセットする
                         Function.identity(),
-                        //Mapの値にはListの要素を1に置き換えて、それをカウントするようにする
                         Collectors.summingInt(s->1))
                 );
-//        System.out.println(map.get("2084221201=1"));
 		int countCheck = 0;
 		int i = 0;
 		for(Entry<String, Integer> entry : map.entrySet()) {
@@ -114,16 +79,12 @@ public class cal {
 		for(Entry<String, Integer> entry : map.entrySet()) {
 			if(entry.getValue() == countCheck) {
 				countOutputs.add(entry.getKey());
-//				System.out.println(entry.getKey());
 			}
 		}
-
-
 
         for(String data : countOutputs) {
         	for(String list : ctLists) {
         		if(data.contains(list)) {
-//        			System.out.println(data);
         			ctOutputs.add(data);
         		}
         	}
@@ -131,9 +92,7 @@ public class cal {
 
 		java.util.Map<String, Integer> map2 = ctOutputs.stream().collect(
                 Collectors.groupingBy(
-                        //MapのキーにはListの要素をそのままセットする
                         Function.identity(),
-                        //Mapの値にはListの要素を1に置き換えて、それをカウントするようにする
                         Collectors.summingInt(s->1))
                 );
 		int countCheck2 = 0;
@@ -148,23 +107,12 @@ public class cal {
 				}
 			}
 			j++;
-//		    System.out.println(entry.getKey());
-//		    System.out.println(entry.getValue());
 		}
 		for(Entry<String, Integer> entry : map2.entrySet()) {
 			if(entry.getValue() == countCheck2) {
 				ctOutputs2.add(entry.getKey());
-//				System.out.println(entry.getKey());
 			}
 		}
-
-
-
-
-
-
-
-
 
 		if(ctOutputs2.size() == 0) {
 			String SQL2 = "select * from searchLinkTbl where amazonCategory like '%" + lists.get(0) + "%';";
@@ -176,26 +124,19 @@ public class cal {
 			for(categoryModel data : datas) {
 				for(String list : lists) {
 					if(data.getCategory().contains(list)) {
-//						System.out.println(data.getCategory());
 						outputs2.add(data.getCategory());
 					}
 				}
 			}
 			java.util.Map<String, Integer> map3 = outputs2.stream().collect(
 	                Collectors.groupingBy(
-	                        //MapのキーにはListの要素をそのままセットする
 	                        Function.identity(),
-	                        //Mapの値にはListの要素を1に置き換えて、それをカウントするようにする
 	                        Collectors.summingInt(s->1))
 	                );
 			for(Entry<String, Integer> entry : map3.entrySet()) {
-//			    System.out.println(entry.getKey());
-//			    System.out.println(entry.getValue());
 			    kuroutouts.add(entry.getKey());
-
 			}
 			int counter = 0;
-
 			for(String kuroutput : kuroutouts) {
 				counter = 0;
 
@@ -207,25 +148,9 @@ public class cal {
 					}
 				}
 				checkList.put(kuroutput,counter);
-				if(counter > 1) {
-					System.out.println(counter);
-					System.out.println(kuroutput);
-				}
 			}
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 
 	//リンク検索
 	public static ObservableList<searchIdModel> searchLinks(String sql) throws ClassNotFoundException, SQLException {
@@ -252,8 +177,6 @@ public class cal {
 		    }
 		return data;
 	}
-
-
 
 	//カテゴリ検索
 	public static ObservableList<categoryModel> searchCategory(String sql) throws ClassNotFoundException, SQLException {

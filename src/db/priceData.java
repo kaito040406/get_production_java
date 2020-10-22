@@ -32,7 +32,7 @@ public class priceData {
 	          try {
 		          stmt.executeUpdate("create table priceTbl(price integer, callPrice real)");
 		          try {
-			    	 File f = new File("price.csv");
+			    	 File f = new File("inputData/price.csv");
 			    	 BufferedReader br = new BufferedReader(new FileReader(f));
 
 			    	 String line;

@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,8 +9,12 @@ import dbj.SqliteDBJ;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import model.priceModel;
 
 public class PriceController {
@@ -76,7 +81,7 @@ public class PriceController {
         }
     }
 
-    public void onSave(ActionEvent e) throws ClassNotFoundException, SQLException {
+    public void onSave(ActionEvent e) throws ClassNotFoundException, SQLException, IOException {
     	boolean valCheck = false;
     	int valCheck2 = 0;
     	Map<Integer, String> inputLists = new HashMap<Integer ,String>();
@@ -102,8 +107,17 @@ public class PriceController {
     	}
 		if(valCheck2 == 0) {
 			SqliteDBJ.updataPrice(inputLists);
+			Parent parent = FXMLLoader.load(getClass().getResource("Success.fxml"));
+			Scene scene = new Scene(parent,300,100);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.show();
 		}else {
-			System.out.println("入力値エラー");
+			Parent parent = FXMLLoader.load(getClass().getResource("CountError.fxml"));
+			Scene scene = new Scene(parent,300,100);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.show();
 		}
     }
 

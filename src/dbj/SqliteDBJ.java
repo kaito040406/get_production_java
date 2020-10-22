@@ -108,7 +108,6 @@ public class SqliteDBJ {
 		      return data;
 		  }
 
-
 	//NGワードの全検索
 	  private static ObservableList<ngwordModel> searchAllNgwordList(ResultSet rs) throws SQLException, ClassNotFoundException {
 	    ObservableList<ngwordModel> data = FXCollections.observableArrayList();
@@ -223,6 +222,4 @@ public class SqliteDBJ {
 		    }
 		      return data;
 	  }
-
-
 }

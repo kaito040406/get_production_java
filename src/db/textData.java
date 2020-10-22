@@ -32,7 +32,7 @@ public class textData {
 	          try {
 		          stmt.executeUpdate("create table textTbl(text1 String, text2 String, text3 String)");
 		          try {
-			    	 File f = new File("text.csv");
+			    	 File f = new File("inputData/text.csv");
 			    	 BufferedReader br = new BufferedReader(new FileReader(f));
 
 			    	 String line;

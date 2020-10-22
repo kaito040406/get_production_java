@@ -42,31 +42,31 @@ public class csvOutput {
 		fileWriter.append(",");
 		fileWriter.append("終了時間");//終了時間
 		fileWriter.append(",");
-		fileWriter.append("画像1の名前");//画像1の名前
+		fileWriter.append("画像1");//画像1の名前
 		fileWriter.append(",");
-		fileWriter.append("画像１のコメント");//画像１のコメント
+		fileWriter.append("画像1コメント");//画像１のコメント
 		fileWriter.append(",");
 		fileWriter.append("画像2");//画像2
 		fileWriter.append(",");
-		fileWriter.append("画像2のコメント");//画像2のコメント
+		fileWriter.append("画像2コメント");//画像2のコメント
 		fileWriter.append(",");
 		fileWriter.append("画像3");//画像3
 		fileWriter.append(",");
-		fileWriter.append("画像3のコメント");//画像3のコメント
+		fileWriter.append("画像3コメント");//画像3のコメント
 		fileWriter.append(",");
-		fileWriter.append("発送元の都道府県");//発送元の都道府県
+		fileWriter.append("商品発送元の都道府県");//発送元の都道府県
 		fileWriter.append(",");
-		fileWriter.append("発送元の市町村");//発送元の市町村
+		fileWriter.append("商品発送元の市区町村");//発送元の市町村
 		fileWriter.append(",");
 		fileWriter.append("送料負担");//送料負担
 		fileWriter.append(",");
 		fileWriter.append("代金支払い");//代金支払い
 		fileWriter.append(",");
-		fileWriter.append("Yahoo簡単決済");//Yahoo簡単決済
+		fileWriter.append("Yahoo!かんたん決済");//Yahoo簡単決済
 		fileWriter.append(",");
-		fileWriter.append("銀行振り込み");//銀行振り込み
+		fileWriter.append("銀行振込");//銀行振り込み
 		fileWriter.append(",");
-		fileWriter.append("簡単取引");//簡単取引
+		fileWriter.append("かんたん取引");//簡単取引
 		fileWriter.append(",");
 		fileWriter.append("銀行ID1");//銀行ID1
 		fileWriter.append(",");
@@ -158,7 +158,7 @@ public class csvOutput {
 		fileWriter.append(",");
 		fileWriter.append("発送までの日数");//発送までの日数
 		fileWriter.append(",");
-		fileWriter.append("発送方法1");//発送方法1
+		fileWriter.append("配送方法1");//発送方法1
 		fileWriter.append(",");
 		fileWriter.append("配送方法1全国一律価格");//配送方法1全国一律価格
 		fileWriter.append(",");
@@ -168,7 +168,7 @@ public class csvOutput {
 		fileWriter.append(",");
 		fileWriter.append("離島料金1");//離島料金1
 		fileWriter.append(",");
-		fileWriter.append("発送方法2");//発送方法2
+		fileWriter.append("配送方法2");//発送方法2
 		fileWriter.append(",");
 		fileWriter.append("配送方法2全国一律価格");//配送方法2全国一律価格
 		fileWriter.append(",");
@@ -178,7 +178,7 @@ public class csvOutput {
 		fileWriter.append(",");
 		fileWriter.append("離島料金2");//離島料金2
 		fileWriter.append(",");
-		fileWriter.append("発送方法3");//発送方法3
+		fileWriter.append("配送方法3");//発送方法3
 		fileWriter.append(",");
 		fileWriter.append("配送方法3全国一律価格");//配送方法3全国一律価格
 		fileWriter.append(",");
@@ -188,7 +188,7 @@ public class csvOutput {
 		fileWriter.append(",");
 		fileWriter.append("離島料金3");//離島料金3
 		fileWriter.append(",");
-		fileWriter.append("発送方法4");//発送方法4
+		fileWriter.append("配送方法4");//発送方法4
 		fileWriter.append(",");
 		fileWriter.append("配送方法4全国一律価格");//配送方法4全国一律価格
 		fileWriter.append(",");
@@ -198,7 +198,7 @@ public class csvOutput {
 		fileWriter.append(",");
 		fileWriter.append("離島料金4");//離島料金4
 		fileWriter.append(",");
-		fileWriter.append("発送方法5");//発送方法5
+		fileWriter.append("配送方法5");//発送方法5
 		fileWriter.append(",");
 		fileWriter.append("配送方法5全国一律価格");//配送方法5全国一律価格
 		fileWriter.append(",");
@@ -208,7 +208,7 @@ public class csvOutput {
 		fileWriter.append(",");
 		fileWriter.append("離島料金5");//離島料金5
 		fileWriter.append(",");
-		fileWriter.append("発送方法6");//発送方法6
+		fileWriter.append("配送方法6");//発送方法6
 		fileWriter.append(",");
 		fileWriter.append("配送方法6全国一律価格");//配送方法6全国一律価格
 		fileWriter.append(",");
@@ -218,7 +218,7 @@ public class csvOutput {
 		fileWriter.append(",");
 		fileWriter.append("離島料金6");//離島料金6
 		fileWriter.append(",");
-		fileWriter.append("発送方法7");//発送方法7
+		fileWriter.append("配送方法7");//発送方法7
 		fileWriter.append(",");
 		fileWriter.append("配送方法7全国一律価格");//配送方法7全国一律価格
 		fileWriter.append(",");
@@ -228,7 +228,7 @@ public class csvOutput {
 		fileWriter.append(",");
 		fileWriter.append("離島料金7");//離島料金7
 		fileWriter.append(",");
-		fileWriter.append("発送方法8");//発送方法8
+		fileWriter.append("配送方法8");//発送方法8
 		fileWriter.append(",");
 		fileWriter.append("配送方法8全国一律価格");//配送方法8全国一律価格
 		fileWriter.append(",");
@@ -238,7 +238,7 @@ public class csvOutput {
 		fileWriter.append(",");
 		fileWriter.append("離島料金8");//離島料金8
 		fileWriter.append(",");
-		fileWriter.append("発送方法9");//発送方法9
+		fileWriter.append("配送方法9");//発送方法9
 		fileWriter.append(",");
 		fileWriter.append("配送方法9全国一律価格");//配送方法9全国一律価格
 		fileWriter.append(",");
@@ -248,7 +248,7 @@ public class csvOutput {
 		fileWriter.append(",");
 		fileWriter.append("離島料金9");//離島料金9
 		fileWriter.append(",");
-		fileWriter.append("発送方法10");//発送方法10
+		fileWriter.append("配送方法10");//発送方法10
 		fileWriter.append(",");
 		fileWriter.append("配送方法10全国一律価格");//配送方法10全国一律価格
 		fileWriter.append(",");

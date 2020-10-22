@@ -32,7 +32,7 @@ public class ngWordData {
 	          try {
 		          stmt.executeUpdate("create table ngWordTbl(id integer primary key, word text, level text)");
 		          try {
-			    	 File f = new File("ngWord.csv");
+			    	 File f = new File("inputData/ngWord.csv");
 			    	 BufferedReader br = new BufferedReader(new FileReader(f));
 
 			    	 String line;

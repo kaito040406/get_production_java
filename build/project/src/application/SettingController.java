@@ -44,6 +44,9 @@ public class SettingController {
     @FXML private TextField delWord;
     @FXML private TextField price1000;
 
+    public SettingController() throws ClassNotFoundException, IOException, InterruptedException, SQLException {
+    }
+
 	public void onLoad(ActionEvent e) throws IOException, InterruptedException, ClassNotFoundException, SQLException {
 		Logger logger = Logger.getLogger("GB");
 		logger.log(Level.INFO,"設定ページの表示");
@@ -75,9 +78,9 @@ public class SettingController {
 			ngwords.addAll(new ngwordModel(ngwordData.getId(),ngwordData.getWord(),levelWord));
 		}
 	}
-	public void add(ActionEvent e) throws ClassNotFoundException, SQLException {
+	public void add(ActionEvent e) throws ClassNotFoundException, SQLException, IOException {
 		Logger logger = Logger.getLogger("GB");
-		
+
 		String word = addWord.getText();
 //		System.out.println(word);
 		String setting = combo.getValue();
@@ -95,9 +98,28 @@ public class SettingController {
 			}
 			SqliteDBJ.insertDataNg(word,settingId);
 			logger.log(Level.INFO,"保存成功");
+			try {
+				//ロードアクションを発生させ表に表示させる
+				Parent parent = FXMLLoader.load(getClass().getResource("Success.fxml"));
+				Scene scene = new Scene(parent,300,100);
+				Stage stage = new Stage();
+				stage.setScene(scene);
+				stage.show();
+				onLoad(e);
+			} catch (ClassNotFoundException | IOException | InterruptedException | SQLException e1) {
+				// TODO 自動生成された catch ブロック
+				e1.printStackTrace();
+			}
+		}else {
+			Parent parent = FXMLLoader.load(getClass().getResource("SettingError.fxml"));
+			Scene scene = new Scene(parent,300,100);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.show();
 		}
 	}
-	public void del(ActionEvent e) throws ClassNotFoundException, SQLException {
+	public void del(ActionEvent e) throws ClassNotFoundException, SQLException, IOException {
+		ObservableList<ngwordModel> ngwordDatas = SqliteDBJ.searchAllDataNg();
 		Logger logger = Logger.getLogger("GB");
 		String regex_num = "^[0-9]+$";
 		Pattern p1 = Pattern.compile(regex_num);
@@ -105,8 +127,41 @@ public class SettingController {
 		boolean result = m1.matches();
 		if(!delWord.getText().equals("") && result) {
 			int delId = Integer.parseInt(delWord.getText());
-			SqliteDBJ.deleteDataNg(delId);
-			logger.log(Level.INFO,"削除成功");
+			boolean checkflg = false;
+			for(ngwordModel ngwordData:ngwordDatas) {
+				if(Integer.toString(ngwordData.getId()).equals(delWord.getText())) {
+					checkflg = true;
+					break;
+				}
+			}
+			if(checkflg) {
+				SqliteDBJ.deleteDataNg(delId);
+				logger.log(Level.INFO,"削除成功");
+				try {
+					//ロードアクションを発生させ表に表示させる
+					Parent parent = FXMLLoader.load(getClass().getResource("Success.fxml"));
+					Scene scene = new Scene(parent,300,100);
+					Stage stage = new Stage();
+					stage.setScene(scene);
+					stage.show();
+					onLoad(e);
+				} catch (ClassNotFoundException | IOException | InterruptedException | SQLException e1) {
+					// TODO 自動生成された catch ブロック
+					e1.printStackTrace();
+				}
+			}else {
+				Parent parent = FXMLLoader.load(getClass().getResource("SettingErrorNG.fxml"));
+				Scene scene = new Scene(parent,300,100);
+				Stage stage = new Stage();
+				stage.setScene(scene);
+				stage.show();
+			}
+		}else {
+			Parent parent = FXMLLoader.load(getClass().getResource("CountError.fxml"));
+			Scene scene = new Scene(parent,300,100);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.show();
 		}
 	}
 	@FXML

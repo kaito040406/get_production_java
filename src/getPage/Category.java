@@ -34,11 +34,8 @@ public class Category {
 	        List<String> ctLists0 = new ArrayList<String>();
 	        String SQL2 = "select * from searchLinkTbl where amazonCategory like '%" + lists.get(0) + "%';";
 	        ObservableList<searchIdModel> links = searchLinks(SQL2);
-//	        String category = "";
-	        //商品説明欄の形素体解析
+	        //商品説明欄の形素体解析　開始
 	        List<Token> tokens = tokenizer.tokenize(text);
-
-	        //カテゴリーデータの形素体解析
 	        for (String list : lists) {
 	        	List<Token> ctTokens = tokenizer.tokenize(list);
 	        	 for (Token token : ctTokens) {
@@ -61,15 +58,12 @@ public class Category {
 	        	}
 	        }
 
-	        //検索結果よりヒット数をランキング
+	        //検索結果よりヒット数をランキングを作成
 			java.util.Map<String, Integer> map = outputs.stream().collect(
 	                Collectors.groupingBy(
-	                        //MapのキーにはListの要素をそのままセットする
 	                        Function.identity(),
-	                        //Mapの値にはListの要素を1に置き換えて、それをカウントするようにする
 	                        Collectors.summingInt(s->1))
 	                );
-
 			//ランキング結果を別配列に格納
 			int countCheck = 0;
 			int i = 0;
@@ -89,7 +83,6 @@ public class Category {
 					countOutputs.add(entry.getKey());
 				}
 			}
-
 			//文章解析で残った結果の中で、カテゴリーにヒットするものを検索
 			//検索結果を別配列に格納
 	        for(String data : countOutputs) {
@@ -102,9 +95,7 @@ public class Category {
 	        //カテゴリーを用いた検索でヒット数のランキングを行う
 			java.util.Map<String, Integer> map2 = ctOutputs.stream().collect(
 	                Collectors.groupingBy(
-	                        //MapのキーにはListの要素をそのままセットする
 	                        Function.identity(),
-	                        //Mapの値にはListの要素を1に置き換えて、それをカウントするようにする
 	                        Collectors.summingInt(s->1))
 	                );
 			int countCheck2 = 0;
@@ -126,10 +117,9 @@ public class Category {
 				}
 			}
 
+
 			//上記の検索アルゴリズムでヒットしなかった場合の検索方法
-			if(ctOutputs2.size() == 0) {
-//				String SQL2 = "select * from searchLinkTbl where amazonCategory like '%" + lists.get(0) + "%';";
-//				ObservableList<searchIdModel> links = searchLinks(SQL2);
+			if(ctOutputs2.size() == 0) {//上記でヒットしない場合(結果がゼロ)
 				String SQL3 = "select * from categoryTbl where searchId='" + links.get(0).getCategoryId() + "';";
 				ObservableList<categoryModel> datas = searchCategory(SQL3);
 				List<String> kuroutouts = new ArrayList<String>();
@@ -143,9 +133,7 @@ public class Category {
 				}
 				java.util.Map<String, Integer> map3 = outputs2.stream().collect(
 		                Collectors.groupingBy(
-		                        //MapのキーにはListの要素をそのままセットする
 		                        Function.identity(),
-		                        //Mapの値にはListの要素を1に置き換えて、それをカウントするようにする
 		                        Collectors.summingInt(s->1))
 		                );
 				for(Entry<String, Integer> entry : map3.entrySet()) {
@@ -169,7 +157,7 @@ public class Category {
 				}
 			}
 
-			//算出したカテゴリーを格納
+			//上記二つのアルゴリズムでヒットしない場合は下記の方法で取得
 			//ヒットしない場合はその他を返す
 			if(ctOutputs2.size() == 0) {
 				if(links.get(0).getCategoryId() == "1") {
@@ -205,14 +193,14 @@ public class Category {
 			categoryId = outPutId.get(0).getCategoryId();
 
 		}catch(IndexOutOfBoundsException e) {
-			System.out.println("カテゴリー取得エラー");
+			throw e;
 		}
 
 	}
 
 
 	//リンク検索
-	public static ObservableList<searchIdModel> searchLinks(String sql) throws ClassNotFoundException, SQLException {
+	private static ObservableList<searchIdModel> searchLinks(String sql) throws ClassNotFoundException, SQLException {
 		ObservableList<searchIdModel> data = FXCollections.observableArrayList();
 		String SQL = sql;
 		try {
@@ -220,7 +208,6 @@ public class Category {
 			data = (ObservableList<searchIdModel>) searchListData(rs);
 			return data;
 		}catch(SQLException ex) {
-			System.out.println("失敗しました");
 			throw ex;
 		}
 	}
@@ -240,7 +227,7 @@ public class Category {
 
 
 	//カテゴリ検索
-	public static ObservableList<categoryModel> searchCategory(String sql) throws ClassNotFoundException, SQLException {
+	private static ObservableList<categoryModel> searchCategory(String sql) throws ClassNotFoundException, SQLException {
 		ObservableList<categoryModel> data = FXCollections.observableArrayList();
 		String SQL = sql;
 		try {
@@ -248,7 +235,6 @@ public class Category {
 			data = (ObservableList<categoryModel>) searchCategoryData(rs);
 			return data;
 		}catch(SQLException ex) {
-			System.out.println("失敗しました");
 			throw ex;
 		}
 	}

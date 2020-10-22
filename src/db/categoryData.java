@@ -32,7 +32,7 @@ public class categoryData {
 	          try {
 		          stmt.executeUpdate("create table categoryTbl(categoryId text, category text, searchId text)");
 		          try {
-			    	 File f = new File("category.csv");
+			    	 File f = new File("inputData/category.csv");
 			    	 BufferedReader br = new BufferedReader(new FileReader(f));
 
 			    	 String line;

@@ -9,7 +9,6 @@ public class imageDelete {
 	    for (int i = 0; i < files.length; i++) {
 	      if (files[i].exists() && files[i].isFile()) {
 	        files[i].delete();
-	        System.out.println("ファイル削除");
 	      }
 	    }
 	}

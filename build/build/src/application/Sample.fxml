@@ -29,11 +29,10 @@
             </Pane>
             <TableView fx:id="productiontable" prefHeight="408.0" prefWidth="693.0">
               <columns>
-                  <TableColumn fx:id="asin" onEditStart="#onClick" prefWidth="93.0" text="ASIN" />
                   <TableColumn fx:id="title" onEditStart="#onClick" prefWidth="111.0" text="title" />
                   <TableColumn fx:id="text" onEditStart="#onClick" prefWidth="112.0" text="Text" />
                   <TableColumn fx:id="price" onEditStart="#onClick" prefWidth="135.0" text="price" />
-                  <TableColumn fx:id="accessurl" onEditStart="#onClick" prefWidth="241.0" text="url" />
+                  <TableColumn fx:id="accessurl" onEditStart="#onClick" prefWidth="334.0" text="url" />
               </columns>
                <VBox.margin>
                   <Insets top="20.0" />

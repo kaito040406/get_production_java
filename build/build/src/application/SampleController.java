@@ -39,8 +39,8 @@ public class SampleController {
 
     @FXML
     private TableView<TableData> productiontable;
-    @FXML
-    private TableColumn asin;
+//    @FXML
+//    private TableColumn asin;
     @FXML
     private TableColumn title;
     @FXML
@@ -51,6 +51,7 @@ public class SampleController {
     private TableColumn accessurl;
     @FXML
     private ObservableList<TableData> data;
+
 
 //    private ObservableList<productionModel> data;
 
@@ -75,20 +76,19 @@ public class SampleController {
 //		String url = "https://www.amazon.co.jp/s?i=fashion-mens-shoes&bbn=2016926051&rh=n%3A2016926051%2Cp_76%3A2227292051&dc&fst=as%3Aoff&qid=1596547791&ref=sr_ex_n_1";
 //		int count = 1;
 		String url = urlData.getText();
-		String regex_num = "^[0-9]+$";
+		String regex_num = "^[0-9]+$";//数字の正規表現
 		Pattern p1 = Pattern.compile(regex_num);
-		Matcher m1 = p1.matcher(page.getText());
-		Matcher m2 = p1.matcher(number.getText());
+		Matcher m1 = p1.matcher(page.getText());//ページ数が数字とマッチしている
+		Matcher m2 = p1.matcher(number.getText());//在庫数が数字とマッチしている
 		boolean result1 = m1.matches();
 		boolean result2 = m2.matches();
-		if(url.contains("https://www.amazon.co.jp/")) {
-			if(result1 && result2) {
+		if(url.contains("https://www.amazon.co.jp/")) {//amazonのURL以外を除去
+			if(result1 && result2) {//ページ数と在庫数が数字以外の時に除去
 				logger.log(Level.INFO,"情報取得を開始します。");
 				int count = Integer.parseInt(page.getText());
 				int getNumber = Integer.parseInt(number.getText());
 				System.out.println(url);
 				System.out.println(count);
-		//		System.exit(0);
 		//
 		//		//実行前に前回のデータを削除
 				logger.log(Level.INFO,"商品データをリセットします");
@@ -109,8 +109,8 @@ public class SampleController {
 				data = FXCollections.observableArrayList();
 				productiontable.itemsProperty().setValue(data);
 				productiontable.setItems(data);
-
-				asin.setCellValueFactory(new PropertyValueFactory<TableData, String>("asin"));
+//ASIN不要のため削除
+//				asin.setCellValueFactory(new PropertyValueFactory<TableData, String>("asin"));
 				title.setCellValueFactory(new PropertyValueFactory<TableData, String>("name"));
 				text.setCellValueFactory(new PropertyValueFactory<TableData, String>("text"));
 				price.setCellValueFactory(new PropertyValueFactory<TableData, String>("price"));
@@ -123,11 +123,26 @@ public class SampleController {
 					data.addAll(new TableData(searchData.getAsin(),searchData.getName(),searchData.getMemo(),searchData.getPrice(),searchData.getUrl()));
 				}
 				logger.log(Level.INFO,"データの取得が完了しました");
+				Parent parent = FXMLLoader.load(getClass().getResource("Finish.fxml"));
+				Scene scene = new Scene(parent,300,100);
+				Stage stage = new Stage();
+				stage.setScene(scene);
+				stage.show();
 			}else {
 				logger.log(Level.INFO,"入力が不正です。");
+				Parent parent = FXMLLoader.load(getClass().getResource("CountError.fxml"));
+				Scene scene = new Scene(parent,300,100);
+				Stage stage = new Stage();
+				stage.setScene(scene);
+				stage.show();
 			}
 		}else {
 			logger.log(Level.INFO,"無効なURLです。");
+			Parent parent = FXMLLoader.load(getClass().getResource("Error.fxml"));
+			Scene scene = new Scene(parent,300,100);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.show();
 		}
 	}
 
@@ -140,12 +155,14 @@ public class SampleController {
 		}
 	}
 
+	//設定画面
 	void settingWindow() throws IOException, ClassNotFoundException, SQLException{
 		Parent parent = FXMLLoader.load(getClass().getResource("Setting.fxml"));
 		Scene scene = new Scene(parent,370,650);
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.show();
+
 	}
 
 	@FXML

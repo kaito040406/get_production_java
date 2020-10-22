@@ -32,7 +32,7 @@ public class searchLinkData {
 	          try {
 		          stmt.executeUpdate("create table searchLinkTbl(amazonCategory text, yahooCategory text, categoryId text)");
 		          try {
-			    	 File f = new File("linkmaster.csv");
+			    	 File f = new File("inputData/linkmaster.csv");
 			    	 BufferedReader br = new BufferedReader(new FileReader(f));
 
 			    	 String line;

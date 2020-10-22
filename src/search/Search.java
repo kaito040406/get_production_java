@@ -22,7 +22,6 @@ public class Search {
 //		searchCategory(SQL);
 		ObservableList<categoryModel> datas = searchCategory(SQL);
 		for(categoryModel data : datas) {
-//			System.out.println(data.getCategory());
 			categoryId = data.getCategoryId();
 			category = data.getCategory();
 		}

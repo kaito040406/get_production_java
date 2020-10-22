@@ -22,9 +22,12 @@ public class Detail {
 	public static List<String> pruductionUrl = new ArrayList<>();
 	public static List<ngwordModel> titleVal = new ArrayList<>();
 	public static Map<String,String> pruductionUrl2 = new HashMap<>();
-
+	//2020/9/18 追加 最大タイトル文字数
+	private static final int titleLength = 65;
 	public static void GetDetail(Map<String, String> urlList) throws  IndexOutOfBoundsException{
 		int i = 1;
+		//タイトルの最大長さ
+
 		for(Map.Entry<String, String> url : urlList.entrySet()) {
 			try {
 				System.out.println(url.getKey());
@@ -32,14 +35,25 @@ public class Detail {
 				Document doc = Jsoup.connect(url.getKey()).get();
 
 				//タイトル情報を取得
-				String title = doc.select(".a-size-large.product-title-word-break").text();
+				//2020/9/19 修正 タイトルを６５文字以下になるように修正
+				String title_raw = doc.select(".a-size-large.product-title-word-break").text();
+				String title = "";
 				for(ngwordModel val : titleVal) {
 					if(val.getLevel().equals("0")) {
-						System.out.println(val.getLevel());
-						if(title.contains(val.getWord())) {
-							title = "";
+						if(title_raw.contains(val.getWord())) {
+							title_raw = "";
 						}
 					}
+				}
+				try {
+					if(title_raw.length() > titleLength) {
+						title = title_raw.substring(0,titleLength);
+					}
+					else {
+						title = title_raw;
+					}
+				}catch(Exception e) {
+					title = "";
 				}
 
 
@@ -200,24 +214,26 @@ public class Detail {
 				//ファイルを正しく保存できているかの確認
 				String filePath = "images/" + Integer.toString(i) + ".jpg";
 				try {
-					if(asin == null || title.equals("")) {
-					}else {
-						if(price.equals("")|| text.equals("")) {
+					//2020/9/18 追加 カテゴリーIDが存在しない時は保存しない
+					if(!categoryId.equals("")) {
+						if(asin == null || title.equals("")) {
 						}else {
-							if(!imageName.equals("")) {
-								//画像データ確認
-								File file = new File(filePath);
-								Boolean fileExists = file.exists();
-								if (fileExists) {
-									System.out.println("保存します");
-									SqliteDBJ.insertData(asin.replace("ASIN: ",""), title, url.getKey(), text, price, category, maker, bland, strDate, categoryId, yCategory,imageName);
-									i++;
-									System.out.println("保存成功");
+							if(price.equals("")|| text.equals("")) {
+							}else {
+								if(!imageName.equals("")) {
+									//画像データ確認
+									File file = new File(filePath);
+									Boolean fileExists = file.exists();
+									if (fileExists) {
+										System.out.println("保存します");
+										SqliteDBJ.insertData(asin.replace("ASIN: ",""), title, url.getKey(), text, price, category, maker, bland, strDate, categoryId, yCategory,imageName);
+										i++;
+										System.out.println("保存成功");
+									}
 								}
 							}
 						}
 					}
-
 				} catch (ClassNotFoundException | SQLException e) {
 					// TODO 自動生成された catch ブロック
 					e.printStackTrace();
@@ -245,4 +261,5 @@ public class Detail {
 		Detail.pruductionUrl2 = pruductionUrl;
 		GetDetail(Detail.pruductionUrl2);
 	}
+
 }
